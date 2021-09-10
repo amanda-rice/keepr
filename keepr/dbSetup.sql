@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS keeps(
   img varchar(255) COMMENT 'Group Primary Image Url',
   views INT COMMENT 'Keep view count',
   shares INT COMMENT 'Keep share count',
+  keeps INT COMMENT 'Keep save count',
   creatorId VARCHAR(255) NOT NULL COMMENT 'Foreign Key: User Account',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
