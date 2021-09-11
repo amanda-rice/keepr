@@ -74,6 +74,46 @@ namespace keepr.Repositories
       _db.Execute(sql, updated);
       return updated;
     }
+
+    internal List<KeepByVaultModel> GetKeepsByVaultId(int vaultId)
+    {
+      string sql = @"
+      SELECT
+        a.*,
+        k.*,
+        vk.id AS vaultKeepId
+      FROM vaultKeep vk
+      JOIN keeps k ON vk.keepId = k.id
+      JOIN accounts a ON k.creatorId = a.id
+      WHERE vk.vaultId = @vaultId;
+      ";
+      return _db.Query<Profile, KeepByVaultModel, KeepByVaultModel>(sql, (prof, kbvm) =>
+      {
+        kbvm.Creator = prof;
+        return kbvm;
+      }, new { vaultId }, splitOn: "id").ToList();
+    }
+    // internal List<KeepByVaultModel> GetKeepsByVaultId(int vaultId, string userId)
+    // {
+    //   string sql = @"
+    //   SELECT
+    //     a.*,
+    //     k.*,
+    //     vk.id AS vaultKeepId,
+    //     v.isPrivate AS isPrivate
+    //   FROM vaultKeep vk
+    //   JOIN keeps k ON vk.keepId = k.id
+    //   JOIN accounts a ON k.creatorId = a.id
+    //   JOIN vaults v ON vk.vaultId = v.id
+    //   WHERE (vk.vaultId = @vaultId AND v.isPrivate = 0)
+    //   ";
+    //   return _db.Query<Profile, KeepByVaultModel, KeepByVaultModel>(sql, (prof, kbvm) =>
+    //   {
+    //     kbvm.Creator = prof;
+    //     return kbvm;
+    //   }, new { vaultId }, splitOn: "id").ToList();
+    // }
+
     public void Delete(int id)
     {
       string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";

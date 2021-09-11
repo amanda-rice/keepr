@@ -1,7 +1,81 @@
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Dapper;
+using keepr.Models;
+
 namespace keepr.Repositories
 {
-    public class VaultsRepository
+  public class VaultsRepository
+  {
+    private readonly IDbConnection _db;
+    public VaultsRepository(IDbConnection db)
     {
-        
+      _db = db;
     }
+    internal List<Vault> Get()
+    {
+      string sql = @"
+        SELECT
+          a.*,
+          v.*
+        FROM vaults v
+        JOIN accounts a ON v.creatorId = a.id
+        ";
+      return _db.Query<Profile, Vault, Vault>(sql, (profile, vault) =>
+      {
+        vault.Creator = profile;
+        return vault;
+      }, splitOn: "id").ToList();
+    }
+    internal Vault Get(int id)
+    {
+      string sql = @"
+        SELECT
+          a.*,
+          v.*
+        FROM vaults v
+        JOIN accounts a ON a.id = v.creatorId
+        WHERE v.id = @id;
+        ";
+      return _db.Query<Profile, Vault, Vault>(sql, (profile, vault) =>
+      {
+        vault.Creator = profile;
+        return vault;
+      }, new { id }, splitOn: "id").FirstOrDefault();
+    }
+    internal Vault Create(Vault newVault)
+    {
+      string sql = @"
+        INSERT INTO vaults
+        (name, description, img, isPrivate, creatorId)
+        VALUES
+        (@Name, @Description, @Img, @IsPrivate, @CreatorId);
+        SELECT LAST_INSERT_ID();
+      ";
+      newVault.Id = _db.ExecuteScalar<int>(sql, newVault);
+      Vault toReturn = Get(newVault.Id);
+      return toReturn;
+    }
+
+    public Vault Edit(Vault updated)
+    {
+      string sql = @"
+      UPDATE vaults
+      SET
+        name = @Name,
+        description = @Description,
+        img = @Img,
+        isPrivate = @IsPrivate
+      WHERE id = @Id
+      ";
+      _db.Execute(sql, updated);
+      return updated;
+    }
+    public void Delete(int id)
+    {
+      string sql = "DELETE FROM vaults WHERE id = @id LIMIT 1;";
+      _db.Execute(sql, new { id });
+    }
+  }
 }

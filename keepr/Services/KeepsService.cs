@@ -25,7 +25,8 @@ namespace keepr.Services
       {
         throw new Exception("Invalid ID");
       }
-      return found;
+      found.Views++;
+      return _repo.Edit(found);
     }
     internal Keep Create(Keep newKeep)
     {
@@ -57,6 +58,25 @@ namespace keepr.Services
         throw new Exception("You can only delete your own keeps");
       }
       _repo.Delete(id);
+    }
+
+    internal List<KeepByVaultModel> GetKeepsByVaultId(int id, string userId, Vault vault)
+    {
+        if(vault.CreatorId != userId && vault.IsPrivate == true)
+        {
+        throw new Exception("You don't have access to this vault");
+      }
+      List<KeepByVaultModel> keeps =  _repo.GetKeepsByVaultId(id);
+      return keeps;
+    }
+    internal List<KeepByVaultModel> GetKeepsByVaultId(int id, Vault vault)
+    {
+        if(vault.IsPrivate == true)
+        {
+        throw new Exception("You don't have access to this vault");
+      }
+      List<KeepByVaultModel> keeps =  _repo.GetKeepsByVaultId(id);
+      return keeps;
     }
   }
 }

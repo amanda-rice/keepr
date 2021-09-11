@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS vaults(
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   name varchar(255) NOT NULL COMMENT 'Vault Name',
   description varchar(2000) COMMENT 'Vault description',
+  img varchar(255) COMMENT 'Vault Image',
   isPrivate TINYINT comment 'is Private',
   creatorId VARCHAR(255) NOT NULL COMMENT 'Foreign Key: User Account',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
