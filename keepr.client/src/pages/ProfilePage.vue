@@ -1,13 +1,28 @@
 <template>
-  <div class="container-fluid p-4">
+  <div class="container-fluid home flex-grow-1 d-flex flex-column align-items-center justify-content-center m-4">
     <div class="row">
       <div class="col-12">
         <div class="row">
-          <div class="col-6 col-md-4 col-lg-2" v-for="k in state.profKeeps" :key="k.id">
-            <KeepProfCard :keep="k" />
+          <div class="col-12 pb-4">
+            <h1 class="m-0 text-left">
+              Vaults
+            </h1>
+          </div>
+          <div class="col-md-4 col-lg-2" v-for="v in state.profVaults" :key="v.id">
+            <VaultProfCard :vault="v" />
           </div>
         </div>
       </div>
+      <div class="col-12 pb-4 pt-2">
+            <h1 class="text-left m-0">
+              Vaults
+            </h1>
+          </div>
+    </div>
+      <div class="card-columns">
+        <div v-for="k in state.profKeeps" :key="k.id">
+          <KeepProfCard :keep="k" />
+        </div>
     </div>
   </div>
 </template>
@@ -46,6 +61,13 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
-
+<style scoped lang="scss">
+.home{
+  text-align: center;
+  user-select: none;
+  > img{
+    height: 200px;
+    width: 200px;
+  }
+}
 </style>

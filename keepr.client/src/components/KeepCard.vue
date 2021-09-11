@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 rounded" :src="keep.img" alt="keep.name" title="keep.name">
-          <div class="img-text d-flex justify-content-between w-100 pr-4">
+          <img class="w-100 img-rounded" :src="keep.img" alt="keep.name" title="keep.name">
+          <div class="img-text d-flex justify-content-between w-100 pl-2 pr-4">
             <h2 class="text-light text-break text-wrap">{{keep.name}}</h2>
             <div>
               <router-link :to="{ name: 'Profile', params: {id: keep.creatorId}}">
