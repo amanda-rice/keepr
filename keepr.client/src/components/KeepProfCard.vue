@@ -2,12 +2,14 @@
     <div class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded" :src="keep.img" :alt="keep.name" :title="keep.name">
+          <img class="w-100 img-rounded" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
+          data-target="#keep-modal">
           <div class="img-text d-flex align-items-center w-100 pr-2">
             <h5 class="text-light w-100 text-center text-break text-wrap pl-2">{{keep.name}}</h5>
           </div>
         </div>
       </div>
+      <KeepModal v-if="keep.id" :keep="keep" />
     </div>
 </template>
 

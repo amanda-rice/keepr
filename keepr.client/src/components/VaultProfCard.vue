@@ -2,7 +2,7 @@
   <div class="py-2">
       <img class="w-100 img-height img-rounded" :src="vault.img" :alt="vault.name" :title="vault.name">
       <div class="">
-        <h5 class="img-text text-break w-100 text-wrap pl-2 pr-3 text-light">{{vault.name}}</h5>
+        <h5 class="img-text text-break w-100 text-wrap pl-3 pr-4 text-light">{{vault.name}}</h5>
       </div>
   </div>
 </template>
