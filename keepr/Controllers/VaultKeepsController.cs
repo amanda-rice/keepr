@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace keepr.Controllers
 {
   [ApiController]
-    [Route("/api/[controller]")]
+    [Route("/api/vaultkeeps")]
     public class VaultKeepsController : ControllerBase
     {
     private readonly VaultKeepsService _vService;

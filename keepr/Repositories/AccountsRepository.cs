@@ -1,10 +1,12 @@
 using System.Data;
 using keepr.Models;
 using Dapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace keepr.Repositories
 {
-    public class AccountsRepository
+  public class AccountsRepository
     {
         private readonly IDbConnection _db;
 
@@ -36,7 +38,22 @@ namespace keepr.Repositories
             return newAccount;
         }
 
-        internal Account Edit(Account update)
+    internal List<Profile> GetProfiles()
+    {
+      string sql = @"
+        SELECT * FROM accounts;
+      ";
+      return _db.Query<Profile>(sql).ToList();
+    }
+    internal Profile GetProfile(string id)
+    {
+      string sql = @"
+        SELECT * FROM accounts a WHERE a.id = @id;
+      ";
+      return _db.QueryFirstOrDefault<Profile>(sql, new {id});
+    }
+
+    internal Account Edit(Account update)
         {
             string sql = @"
             UPDATE accounts

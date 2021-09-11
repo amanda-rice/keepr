@@ -47,7 +47,18 @@ namespace keepr.Services
     {
       return _repo.Create(newVault);
     }
-
+    internal List<Vault> GetProfileVaults(string id, bool isYourProfile)
+    {
+      List<Vault> vaults;
+      if(isYourProfile){
+        vaults = _repo.GetYourProfileVaults(id);
+      }
+      else
+      {
+        vaults =  _repo.GetProfileVaults(id);
+      }
+      return vaults;
+    }
     internal Vault Edit(Vault updatedVault)
     {
       Vault original = Get(updatedVault.Id, true);

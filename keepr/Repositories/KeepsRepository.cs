@@ -44,6 +44,22 @@ namespace keepr.Repositories
         return keep;
       }, new { id }, splitOn: "id").FirstOrDefault();
     }
+    internal List<Keep> GetYourProfileKeeps(string accountId)
+    {
+      string sql = @"
+        SELECT
+          a.*,
+          k.*
+        FROM keeps k
+        JOIN accounts a ON a.id = k.creatorId
+        WHERE k.creatorId = @accountId;
+        ";
+      return _db.Query<Profile, Keep, Keep>(sql, (profile, keep) =>
+      {
+        keep.Creator = profile;
+        return keep;
+      }, new { accountId }, splitOn: "id").ToList();
+    }
     internal Keep Create(Keep newKeep)
     {
       string sql = @"

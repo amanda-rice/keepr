@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -18,6 +19,14 @@ namespace keepr.Services
         internal Account GetProfileByEmail(string email)
         {
             return _repo.GetByEmail(email);
+        }
+        internal List<Profile> GetProfiles()
+        {
+            return _repo.GetProfiles();
+        }
+        internal Profile GetProfile(string id)
+        {
+            return _repo.GetProfile(id);
         }
         internal Account GetOrCreateProfile(Account userInfo)
         {

@@ -7,9 +7,11 @@ namespace keepr.Services
   public class VaultKeepsService
   {
     private readonly VaultKeepsRepository _repo;
-    public VaultKeepsService(VaultKeepsRepository repo)
+    private readonly KeepsRepository _kRepo;
+    public VaultKeepsService(VaultKeepsRepository repo, KeepsRepository kRepo)
     {
       _repo = repo;
+      _kRepo = kRepo;
     }
 
     // internal List<VaultKeep> Get()
@@ -40,7 +42,11 @@ namespace keepr.Services
     // }
     internal VaultKeep Create(VaultKeep newVaultKeep)
     {
-      return _repo.Create(newVaultKeep);
+      VaultKeep toReturn = _repo.Create(newVaultKeep);
+      Keep keep = _kRepo.Get(toReturn.Id);
+      keep.Keeps = keep.Keeps + 1;
+      _kRepo.Edit(keep);
+      return toReturn;
     }
 
     // internal VaultKeep Edit(VaultKeep updatedVaultKeep)

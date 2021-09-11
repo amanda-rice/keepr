@@ -28,6 +28,18 @@ namespace keepr.Services
       found.Views++;
       return _repo.Edit(found);
     }
+    internal List<Keep> GetProfileKeeps(string id, bool isYourProfile)
+    {
+      List<Keep> keeps;
+      // if(isYourProfile){
+        keeps = _repo.GetYourProfileKeeps(id);
+      // }
+      // else
+      // {
+      //   throw new Exception("These aren't your keeps");
+      // }
+      return keeps;
+    }
     internal Keep Create(Keep newKeep)
     {
       return _repo.Create(newKeep);
