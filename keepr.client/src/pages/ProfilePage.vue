@@ -13,20 +13,24 @@
     <div class="row">
       <div class="col-12">
         <div class="row">
-          <div class="col-12 pb-4">
+          <div class="col-12 pb-4 d-flex">
             <h1 class="m-0 text-left">
               Vaults
             </h1>
+            <i class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
+          data-target="#create-vault-modal"></i>
           </div>
           <div class="col-md-4 col-lg-2" v-for="v in state.profVaults" :key="v.id">
             <VaultProfCard :vault="v" />
           </div>
         </div>
       </div>
-      <div class="col-12 pb-4 pt-2">
+      <div class="col-12 pb-4 pt-2 d-flex">
             <h1 class="text-left m-0">
               Keeps
             </h1>
+            <i class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
+          data-target="#create-keep-modal"></i>
           </div>
     </div>
       <div class="card-columns">
@@ -34,6 +38,8 @@
           <KeepProfCard :keep="k" />
         </div>
     </div>
+    <CreateVaultModal/>
+    <CreateKeepModal/>
   </div>
 </template>
 

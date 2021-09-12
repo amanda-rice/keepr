@@ -37,6 +37,12 @@ class KeepsService {
     logger.log(res.data)
   }
 
+  async createKeep(obj) {
+    const res = await api.post('/api/keeps', obj)
+    AppState.keeps.push(res.data)
+    AppState.profKeeps.push(res.data)
+  }
+
   async deleteKeep(id) {
     const res = await api.delete(`/api/keeps/${id}`)
     const indexPK = AppState.profKeeps.findIndex(k => k.id === id)
