@@ -2,7 +2,7 @@ import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
-class VaultService {
+class VaultsService {
   async getAllVaults() {
     const res = await api.get('/api/vaults')
     AppState.vaults = res.data
@@ -12,6 +12,12 @@ class VaultService {
   async getVaultsByProfile(id) {
     const res = await api.get(`/api/profiles/${id}/vaults`)
     AppState.profVaults = res.data
+    logger.log(res.data)
+  }
+
+  async getVaultsByProfileNotKeep(id, keepId) {
+    const res = await api.get(`/api/profiles/${id}/vaults`)
+    AppState.selProfVaults = res.data.filter(v => (v.id !== keepId))
     logger.log(res.data)
   }
 
@@ -29,4 +35,4 @@ class VaultService {
   }
 }
 
-export const vaultsService = new VaultService()
+export const vaultsService = new VaultsService()

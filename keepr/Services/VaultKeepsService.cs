@@ -43,7 +43,7 @@ namespace keepr.Services
     // }
     internal VaultKeep Create(VaultKeep newVaultKeep)
     {
-      List<KeepByVaultModel> existingKeeps = _kRepo.GetKeepsByVaultId(newVaultKeep.KeepId);
+      List<KeepByVaultModel> existingKeeps = _kRepo.GetKeepsByVaultId(newVaultKeep.VaultId);
       if(existingKeeps.Find(k => k.Id == newVaultKeep.KeepId) != null){
         throw new Exception("This Keep already exists in this Vault");
       }

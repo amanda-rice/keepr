@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
 import { keepsService } from '../services/KeepsService'
@@ -17,7 +17,10 @@ import { AppState } from '../AppState'
 
 export default {
   setup() {
-    onMounted(async()=>{
+    const state = reactive({
+      account: computed(()=> AppState.account),
+    })
+    watchEffect(async()=>{
       try{
         await keepsService.getAllKeeps()
       }
@@ -26,6 +29,7 @@ export default {
       }
     })
     return {
+      state,
       keeps: computed(() => AppState.keeps)
     }
   }

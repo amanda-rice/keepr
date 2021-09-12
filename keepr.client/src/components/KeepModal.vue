@@ -61,7 +61,7 @@
 
 <script>
 
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
@@ -82,11 +82,11 @@ export default {
     const state = reactive({
       vaultKeep: {},
       account: computed(() => AppState.account),
-      vaults: computed(()=> AppState.profVaults)
+      vaults: computed(()=> AppState.selProfVaults)
     })
-    onMounted(async() => {
+    watchEffect(async() => {
       try {
-        await vaultsService.getVaultsByProfile(state.account.id)
+        await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
       } catch (error) {
         Pop.toast(error, 'error')
       }
@@ -99,10 +99,11 @@ export default {
           $('#keep-modal-'+ id).modal('hide')
           state.vaultKeep.creatorId = state.account.id
           state.vaultKeep.keepId = props.keep.id
-          await vaultKeepsService.create(state.vaultKeep)
+          const message = await vaultKeepsService.create(state.vaultKeep)
+          state.vaultKeep = {}
           Pop.toast('Added to Vault', 'success')
         } catch (error) {
-          Pop.toast(error, 'error')
+          Pop.toast(`Can't add Keep to this Vault` , 'error')
         }
       },
       async deleteKeep(){

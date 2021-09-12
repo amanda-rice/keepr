@@ -82,5 +82,10 @@ namespace keepr.Services
       }
       _repo.Delete(id);
     }
+    internal List<VaultByKeepModel> GetVaultsByKeepId(int id, string userId, Keep keep)
+    {
+      List<VaultByKeepModel> vaults =  _repo.GetVaultsByKeepId(id);
+      return vaults;
+    }
   }
 }

@@ -15,10 +15,12 @@ namespace keepr.Controllers
     {
     private readonly KeepsService _kService;
     private readonly VaultKeepsService _vService;
-    public KeepsController(KeepsService kService, VaultKeepsService vService)
+    private readonly VaultsService _vaService;
+    public KeepsController(KeepsService kService, VaultKeepsService vService, VaultsService vaService)
     {
       _kService = kService;
-      this._vService = vService;
+      _vService = vService;
+      _vaService = vaService;
     }
     [HttpGet]
     public ActionResult<List<Keep>> Get()
@@ -40,6 +42,27 @@ namespace keepr.Controllers
       {
         Keep keep = _kService.Get(id);
         return Ok(keep);
+      }
+      catch (Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+    [HttpGet("{id}/vaults")]
+    public async Task<ActionResult<List<VaultByKeepModel>>> GetVaultsByKeepIdAsync(int id)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Keep keep = _kService.Get(id);
+        List<VaultByKeepModel> vault;
+        if(userInfo != null){
+        vault = _vaService.GetVaultsByKeepId(id, userInfo.Id, keep);
+        return Ok(vault);
+        }
+        else{
+          return BadRequest("You are not logged in");
+        }
       }
       catch (Exception err)
       {
