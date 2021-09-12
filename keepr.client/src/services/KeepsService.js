@@ -2,11 +2,27 @@ import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
-class KeepService {
+class KeepsService {
   async getAllKeeps() {
     const res = await api.get('/api/keeps')
     AppState.keeps = res.data
     logger.log(res.data)
+  }
+
+  async getById(id) {
+    const res = await api.get(`/api/keeps/${id}`)
+    let index = AppState.profKeeps.findIndex(k => k.id === id)
+    AppState.profKeeps[index] = res.data
+    index = AppState.vaultKeeps.findIndex(k => k.id === id)
+    AppState.vaultKeeps[index] = res.data
+    logger.log(res.data)
+  }
+
+  async getByIdProf(id) {
+    const res = await api.get(`/api/keeps/${id}`)
+    const index = AppState.keeps.findIndex(k => k.id === id)
+    AppState.keeps[index] = res.data
+    logger.log()
   }
 
   async getKeepsByProfile(id) {
@@ -14,6 +30,29 @@ class KeepService {
     AppState.profKeeps = res.data
     logger.log(res.data)
   }
+
+  async getKeepsByVaultId(id) {
+    const res = await api.get(`/api/vaults/${id}/keeps`)
+    AppState.vaultKeeps = res.data
+    logger.log(res.data)
+  }
+
+  async deleteKeep(id) {
+    const res = await api.delete(`/api/keeps/${id}`)
+    const indexPK = AppState.profKeeps.findIndex(k => k.id === id)
+    if (indexPK) {
+      AppState.profKeeps.splice(indexPK, 1)
+    }
+    const indexVK = AppState.vaultKeeps.findIndex(k => k.id === id)
+    if (indexVK) {
+      AppState.vaultKeeps.splice(indexVK, 1)
+    }
+    const indexK = AppState.keeps.findIndex(k => k.id === id)
+    if (indexK) {
+      AppState.keeps.splice(indexK, 1)
+    }
+    console.log(res)
+  }
 }
 
-export const keepsService = new KeepService()
+export const keepsService = new KeepsService()

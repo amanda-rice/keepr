@@ -1,5 +1,15 @@
 <template>
-  <div class="container-fluid home flex-grow-1 d-flex flex-column align-items-center justify-content-center m-4">
+  <div class="container-fluid home flex-grow-1 d-flex flex-column m-4">
+    <div class="row align-items-start p-3">
+      <div class="col-md-3">
+        <img class="w-100" :src="state.profile.picture" :alt="state.profile.name">
+      </div>
+      <div class="pl-4 col-md-9 d-flex flex-column align-items-start justify-content-end">
+        <h1 class="text-break text-wrap">{{state.profile.name}}</h1>
+        <h5>Vaults: {{state.profVaults.length}} </h5>
+        <h5>Keeps: {{state.profKeeps.length}}</h5>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="row">
@@ -15,7 +25,7 @@
       </div>
       <div class="col-12 pb-4 pt-2">
             <h1 class="text-left m-0">
-              Vaults
+              Keeps
             </h1>
           </div>
     </div>
@@ -35,6 +45,7 @@ import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
 import { keepsService } from '../services/KeepsService'
+import { profilesService } from '../services/ProfilesService'
 
 export default {
   setup() {
@@ -42,12 +53,14 @@ export default {
     const state = reactive({
       profVaults: computed(() => AppState.profVaults),
       profKeeps: computed(()=> AppState.profKeeps),
+      profile: computed(()=> AppState.activeProfile),
     })
 
     onMounted(async() => {
       try {
         await vaultsService.getVaultsByProfile(route.params.id)
         await keepsService.getKeepsByProfile(route.params.id)
+        await profilesService.getProfileById(route.params.id)
       } catch (error) {
         Pop.toast(error, 'error')
       }

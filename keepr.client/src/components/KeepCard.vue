@@ -3,7 +3,8 @@
     <div class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded" :src="keep.img" alt="keep.name" title="keep.name">
+          <img class="w-100 img-rounded" :src="keep.img" alt="keep.name" title="keep.name" data-toggle="modal" 
+          :data-target="'#keep-modal-'+keep.id" @click="getKeep">
           <div class="img-text d-flex justify-content-between w-100 pl-2 pr-4">
             <h2 class="text-light text-break text-wrap">{{keep.name}}</h2>
             <div>
@@ -15,11 +16,19 @@
         </div>
       </div>
     </div>
+    <KeepModal v-if="keep.id" :keep="keep" />
   </div>
 </template>
 
 
 <script>
+import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { useRoute } from 'vue-router'
+import Pop from '../utils/Notifier'
+import { AppState } from '../AppState'
+import { vaultsService } from '../services/VaultsService'
+import { keepsService } from '../services/KeepsService'
+
 export default {
   props: {
     keep:{
@@ -27,8 +36,17 @@ export default {
       required: true
     }
   },
-  setup(){
-    return {}
+  setup(props){
+    const route = useRoute()
+    return {
+      async getKeep(){
+        try {
+          await keepsService.getByIdProf(props.keep.id)
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
+    }
   },
   components:{}
 }

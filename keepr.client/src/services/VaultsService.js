@@ -14,6 +14,12 @@ class VaultService {
     AppState.profVaults = res.data
     logger.log(res.data)
   }
+
+  async getVaultById(id) {
+    const res = await api.get(`/api/vaults/${id}`)
+    AppState.activeVault = res.data
+    logger.log(res.data)
+  }
 }
 
 export const vaultsService = new VaultService()

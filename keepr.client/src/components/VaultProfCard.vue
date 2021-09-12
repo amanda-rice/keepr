@@ -1,6 +1,8 @@
 <template>
   <div class="py-2">
+    <router-link :to="{ name: 'Vault', params: {id: vault.id}}">
       <img class="w-100 img-height img-rounded" :src="vault.img" :alt="vault.name" :title="vault.name">
+    </router-link>
       <div class="">
         <h5 class="img-text text-break w-100 text-wrap pl-3 pr-4 text-light">{{vault.name}}</h5>
       </div>
