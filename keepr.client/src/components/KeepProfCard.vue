@@ -1,9 +1,12 @@
 <template>
-    <div class="card img-rounded">
+    <div v-if="vaultKeeps.find(k => k.id === keep.id)" class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
           <img class="w-100 img-rounded selectable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
+          <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
+            <i class="fas fa-times rmv-keep fa-lg text-light selectable" title="Remove Keep from Vault" @click="removeKeep"></i>
+          </div>
           <div class="img-text d-flex align-items-center w-100 pr-2">
             <h5 class="text-light w-100 text-center text-break text-wrap pl-2">{{keep.name}}</h5>
           </div>
@@ -15,12 +18,13 @@
 
 
 <script>
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
 import { keepsService } from '../services/KeepsService'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 
 export default {
   props: {
@@ -31,14 +35,46 @@ export default {
   },
   setup(props){
     const route = useRoute()
+    watchEffect(async ()=>{
+      try {
+        await keepsService.getKeepsByVaultId(AppState.activeVault.id)
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
+    })
     return {
+      route,
       async getKeep(){
         try {
           await keepsService.getById(props.keep.id, route.params.id)
         } catch (error) {
-          Pop.toast
+          Pop.toast(error, 'error')
         }
-      }
+      },
+      async removeKeep(){
+        try {
+          if(await Pop.confirm()){
+            await vaultKeepsService.remove(props.keep.vaultKeepId)
+            Pop.toast('Removed Keep Successfully', 'success')
+          }
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
+      async deleteVault(){
+        try {
+          if (await Pop.confirm()) {
+            await vaultsService.deleteVault(state.activeVault.id)
+            Pop.toast('Deleted Vault Successfully', 'success')
+            router.push({name: 'Home'})
+          }
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
+      activeVault: computed(()=> AppState.activeVault),
+      account: computed(()=> AppState.account),
+      vaultKeeps: computed(()=> AppState.vaultKeeps),
     }
   },
   components:{}
@@ -54,6 +90,13 @@ export default {
   position: absolute;
   bottom: 5px;
   left: 10px;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.582);
+  
+}
+.rmv-keep{
+  position: absolute;
+  top: 20px;
+  right: 20px;
   text-shadow: 2px 2px rgba(0, 0, 0, 0.582);
   
 }

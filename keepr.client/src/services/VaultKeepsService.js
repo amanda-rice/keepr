@@ -21,6 +21,16 @@ class VaultKeepsService {
     }
     return res
   }
+
+  async remove(id) {
+    const res = await api.delete('/api/vaultKeeps/' + id)
+    const indexVK = AppState.vaultKeeps.findIndex(k => k.id === id)
+    if (AppState.vaultKeeps[indexVK]) {
+      AppState.vaultKeeps.splice(indexVK, 1)
+    }
+    console.log(AppState.vaultKeeps, 'Vault Keeps')
+    return res
+  }
 }
 
 export const vaultKeepsService = new VaultKeepsService()

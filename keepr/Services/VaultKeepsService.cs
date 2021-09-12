@@ -75,6 +75,9 @@ namespace keepr.Services
       {
         throw new Exception("You can only delete your own vaultKeeps");
       }
+      Keep keep = _kRepo.Get(deleteItem.KeepId);
+      keep.Keeps = keep.Keeps - 1;
+      _kRepo.Edit(keep);
       _repo.Delete(id);
     }
   }

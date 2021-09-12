@@ -33,6 +33,11 @@ class VaultsService {
     AppState.vaults.push(res.data)
     AppState.profVaults.push(res.data)
   }
+
+  async deleteVault(id) {
+    const res = await api.delete(`/api/vaults/${id}`)
+    console.log(res)
+  }
 }
 
 export const vaultsService = new VaultsService()
