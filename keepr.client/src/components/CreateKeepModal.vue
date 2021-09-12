@@ -34,7 +34,7 @@
                      id="description"
                      class="form-control"
                      placeholder="Description..."
-                     maxlength="25"
+                     maxlength="500"
                      required
                      v-model="state.createKeep.description"
               >

@@ -22,25 +22,31 @@
                 <img class="w-100" :src="keep.img" :alt="keep.name" :title="keep.name">
               </div>
               <div class="col-6 d-flex flex-column flex-grow justify-content-between">
+                <div class="d-flex flex-column">
                 <div class="d-flex justify-content-around">
                   <p>Views: {{keep.views}}</p>
                   <p>Keeps: {{keep.keeps}}</p>
                   <p>Shares: {{keep.shares}}</p>
                 </div>
                 <div>
-                  <h3 class="text-wrap text-break">{{keep.name}}</h3>
+                  <div class="d-flex justify-content-center align-items-center pb-3 pt-2">
+                    <h3 class="text-wrap text-break m-0">{{keep.name}}</h3>
+                    <i class="fa fa-trash pl-3 fa-lg" @click="deleteKeep"></i>
+                  </div>
                   <p class="text-left text-wrap text-break">{{keep.description}}</p>
                 </div>
+                </div>
                 <div class="row d-flex justify-content-around">
-                  <div class="col-3">
-                    <button>Add to vault</button>
+                  <div class="col-md-6">
+                    <select v-model="state.vaultKeep.vaultId" @change="addVault">
+                      <option v-for="(value, key) in state.vaults" :key="key" :value="value.id">
+                        {{ value.name }}
+                      </option>
+                    </select>
                   </div>
-                  <div class="col-2">
-                    <i class="fa fa-trash" @click="deleteKeep"></i>
-                  </div>
-                  <div class="col-5 d-flex">
+                  <div class="col-md-6 d-flex align-items-center">
                     <img class="sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
-                    <p class="pl-3 pr-1 text-break text-wrap">{{keep.creator.name}}</p>
+                    <p class="pl-3 pr-1 text-break text-wrap text-right"><i>{{keep.creator.name}}</i></p>
                   </div>
                 </div>
               </div>
@@ -60,6 +66,8 @@ import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 import $ from 'jquery'
 
 export default {
@@ -71,7 +79,32 @@ export default {
   },
   setup(props){
     const route = useRoute()
+    const state = reactive({
+      vaultKeep: {},
+      account: computed(() => AppState.account),
+      vaults: computed(()=> AppState.profVaults)
+    })
+    onMounted(async() => {
+      try {
+        await vaultsService.getVaultsByProfile(state.account.id)
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
+    })
     return {
+      state,
+      async addVault(){
+        try {
+          const id = props.keep.id
+          $('#keep-modal-'+ id).modal('hide')
+          state.vaultKeep.creatorId = state.account.id
+          state.vaultKeep.keepId = props.keep.id
+          await vaultKeepsService.create(state.vaultKeep)
+          Pop.toast('Added to Vault', 'success')
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
       async deleteKeep(){
         try {
           if (await Pop.confirm()) {

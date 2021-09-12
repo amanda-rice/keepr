@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -42,8 +43,12 @@ namespace keepr.Services
     // }
     internal VaultKeep Create(VaultKeep newVaultKeep)
     {
+      List<KeepByVaultModel> existingKeeps = _kRepo.GetKeepsByVaultId(newVaultKeep.KeepId);
+      if(existingKeeps.Find(k => k.Id == newVaultKeep.KeepId) != null){
+        throw new Exception("This Keep already exists in this Vault");
+      }
       VaultKeep toReturn = _repo.Create(newVaultKeep);
-      Keep keep = _kRepo.Get(toReturn.Id);
+      Keep keep = _kRepo.Get(newVaultKeep.KeepId);
       keep.Keeps = keep.Keeps + 1;
       _kRepo.Edit(keep);
       return toReturn;

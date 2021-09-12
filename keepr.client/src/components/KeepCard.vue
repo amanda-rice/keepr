@@ -3,13 +3,13 @@
     <div class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded" :src="keep.img" alt="keep.name" title="keep.name" data-toggle="modal" 
+          <img class="w-100 img-rounded selectable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
-          <div class="img-text d-flex justify-content-between w-100 pl-2 pr-4">
-            <h2 class="text-light text-break text-wrap">{{keep.name}}</h2>
+          <div class="img-text d-flex justify-content-between w-100 pl-3 pr-4 pb-2">
+            <h3 class="text-light text-break text-wrap">{{keep.name}}</h3>
             <div>
               <router-link :to="{ name: 'Profile', params: {id: keep.creatorId}}">
-                <img class="sm-prof-img mt-2" :src="keep.creator.picture" :alt="keep.creator.name">
+                <img class="sm-prof-img mt-1  mr-2" :src="keep.creator.picture" :alt="keep.creator.name">
               </router-link>
             </div>
           </div>
@@ -67,6 +67,7 @@ export default {
 .sm-prof-img{
   height: 30px;
   width: 30px;
+  border-radius: 50%;
 }
  .bg-gradient {
     background-image:

@@ -8,6 +8,7 @@
         <h1 class="text-break text-wrap">{{state.profile.name}}</h1>
         <h5>Vaults: {{state.profVaults.length}} </h5>
         <h5>Keeps: {{state.profKeeps.length}}</h5>
+        <i v-if="route.params.id === account.id" class="fas fa-edit fa-2x selectable" @click="editProfile"></i>
       </div>
     </div>
     <div class="row">
@@ -17,7 +18,7 @@
             <h1 class="m-0 text-left">
               Vaults
             </h1>
-            <i class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
+            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
           data-target="#create-vault-modal"></i>
           </div>
           <div class="col-md-4 col-lg-2" v-for="v in state.profVaults" :key="v.id">
@@ -29,7 +30,7 @@
             <h1 class="text-left m-0">
               Keeps
             </h1>
-            <i class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
+            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
           data-target="#create-keep-modal"></i>
           </div>
     </div>
@@ -45,7 +46,7 @@
 
 
 <script>
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
@@ -62,7 +63,7 @@ export default {
       profile: computed(()=> AppState.activeProfile),
     })
 
-    onMounted(async() => {
+    watchEffect(async() => {
       try {
         await vaultsService.getVaultsByProfile(route.params.id)
         await keepsService.getKeepsByProfile(route.params.id)
@@ -72,7 +73,9 @@ export default {
       }
     })
     return {
-      state
+      state,
+      route,
+      account: computed(()=> AppState.account)
     }
   },
   components:{}
