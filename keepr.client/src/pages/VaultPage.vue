@@ -7,7 +7,7 @@
           <i v-if="account.id === state.activeVault.creatorId" class="fa fa-trash pl-3 pt-3 fa-lg hoverable" @click="deleteVault" title="Delete Vault"></i>
         </div>
         <h3>Keeps: {{state.vaultKeeps.length}}</h3>
-        <h1>{{state.activeVault.isPrivate?'Private':'Public'}}</h1>
+        <h3 class="text-dark-grey"><i>{{state.activeVault.isPrivate?'Private':'Public'}}</i></h3>
       </div>
     </div>
     <div class="card-columns">

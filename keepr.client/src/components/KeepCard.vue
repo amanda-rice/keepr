@@ -1,16 +1,14 @@
 <template>
   <div>
-    <div class="card img-rounded">
+    <div class="card img-rounded hoverable" >
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
+          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" >
+          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 bg-gradient h-100" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
-          <div class="img-text d-flex justify-content-between w-100 pl-3 pr-4 pb-2">
-            <h3 class="text-light text-break text-wrap">{{keep.name}}</h3>
+            <h3 class="pl-3 text-light clip-text md-font-size">{{keep.name}}</h3>
             <div>
-              <router-link :to="{ name: 'Profile', params: {id: keep.creatorId}}">
-                <img class="sm-prof-img mt-1  mr-2" :src="keep.creator.picture" :alt="keep.creator.name">
-              </router-link>
+                <img class="sm-prof-img mt-1 mr-3 mb-2" :src="keep.creator.picture" :alt="keep.creator.name" @click.stop="goToProfile">
             </div>
           </div>
         </div>
@@ -23,7 +21,8 @@
 
 <script>
 import { computed, onMounted, reactive } from '@vue/runtime-core'
-import { useRoute } from 'vue-router'
+import { useRoute} from 'vue-router'
+import { router } from '../router'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
@@ -51,6 +50,9 @@ export default {
         } catch (error) {
           Pop.toast(error, 'error')
         }
+      },
+      goToProfile(){
+        router.push({ name: 'Profile', params: {id: props.keep.creatorId}})
       }
     }
   },
@@ -77,9 +79,17 @@ export default {
 }
  .bg-gradient {
     background-image:
-    linear-gradient(to bottom, rgba(8, 9, 15, 0.178), rgba(17, 15, 17, 0.637));
+    linear-gradient(to bottom, rgba(8, 9, 15, 0.144), rgba(17, 15, 17, 0.788));
     background-size: cover;
     color: white;
-    border-radius: 2%;
+    border-radius: 10%;
+    position: absolute;
+    bottom:-2px;
+    left: -2px;
 } 
+@media only screen and (max-width: 768px) {
+  .md-font-size {
+    font-size: 22px;
+  }
+}
 </style>

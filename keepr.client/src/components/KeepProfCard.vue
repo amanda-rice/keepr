@@ -1,13 +1,13 @@
 <template>
-    <div class="card img-rounded">
+    <div class="card img-rounded hoverable" >
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
+          <img class="w-100 img-rounded" :src="keep.img" :alt="keep.name" :title="keep.name">
+          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 bg-gradient h-100 " data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
           <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
-            <i class="fas fa-times rmv-keep fa-lg text-light hoverable" title="Remove Keep from Vault" @click="removeKeep"></i>
+            <i class="fas fa-times rmv-keep fa-lg text-light hoverable" title="Remove Keep from Vault" @click.stop="removeKeep"></i>
           </div>
-          <div class="img-text d-flex align-items-center w-100 pr-2">
             <h5 class="text-light w-100 text-center text-break text-wrap pl-2">{{keep.name}}</h5>
           </div>
         </div>
@@ -100,11 +100,14 @@ export default {
   text-shadow: 2px 2px rgba(0, 0, 0, 0.582);
   
 }
- /* .bg-gradient {
+ .bg-gradient {
     background-image:
-    linear-gradient(to bottom, rgba(8, 9, 15, 0.178), rgba(17, 15, 17, 0.637));
+    linear-gradient(to bottom, rgba(8, 9, 15, 0.007), rgba(17, 15, 17, 0.616));
     background-size: cover;
     color: white;
-    border-radius: 2%;
-}  */
+    border-radius: 10%;
+    position: absolute;
+    bottom:-2px;
+    left: -2px;
+} 
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="py-2">
-    <h1>{{vault.isPrivate?'Private':'Public'}}</h1>
     <router-link :to="{ name: 'Vault', params: {id: vault.id}}">
       <img class="w-100 img-height img-rounded" :src="vault.img" :alt="vault.name" :title="vault.name">
     </router-link>
@@ -35,7 +34,7 @@ export default {
   position: absolute;
   bottom: 5px;
   left: 10px;
-  text-shadow: 2px 2px rgba(0, 0, 0, 0.582);
+  text-shadow: 2px 2px 10px rgb(0, 0, 0);
   
 }
 .img-height{

@@ -46,7 +46,7 @@
                   </div>
                   <div class="col-lg-6 d-flex align-items-end p-2">
                     <img class="sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
-                    <p class="pl-3 m-0 pr-1 text-ellipses text-truncate text-right"><i>{{keep.creator.name}}</i></p>
+                    <p class="pl-3 m-0 pr-1 text-ellipses text-truncate text-right" :title="keep.creator.name"><i>{{keep.creator.name}}</i></p>
                   </div>
                 </div>
               </div>

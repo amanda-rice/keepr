@@ -18,7 +18,7 @@
             <h1 class="m-0 text-left">
               Vaults
             </h1>
-            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" title="Create Vault" data-toggle="modal" 
+            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3 hoverable" title="Create Vault" data-toggle="modal" 
           data-target="#create-vault-modal"></i>
           </div>
           <div class="col-md-4 col-lg-2" v-for="v in state.profVaults" :key="v.id">
@@ -30,7 +30,7 @@
             <h1 class="text-left m-0">
               Keeps
             </h1>
-            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" title="Create Keep" data-toggle="modal" 
+            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3 hoverable" title="Create Keep" data-toggle="modal" 
           data-target="#create-keep-modal"></i>
           </div>
     </div>

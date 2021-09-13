@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light nav-border">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
+      <div class="d-flex flex-column align-items-center" title="Go to Homepage">
         <h1 class="m-0">Keepr</h1>
       </div>
     </router-link>
@@ -18,20 +18,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link :to="{ name: 'Home' }" class="nav-link">
+        <li class="nav-item" title="Go to Homepage">
+          <router-link :to="{ name: 'Home' }" class="nav-link text-dark-grey">
             Home
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
           </router-link>
         </li>
       </ul>
       <span class="navbar-text">
         <button
           class="btn btn-outline-primary text-uppercase"
+          title="log in"
           @click="login"
           v-if="!user.isAuthenticated"
         >
@@ -49,20 +45,16 @@
               height="40"
               class="rounded"
             />
-            <span class="mx-3">{{ user.name }}</span>
+            <span class="mx-3 text-dark-grey hoverable">{{ user.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
-            <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
-                Account
-              </div>
-            </router-link>
             <div
               class="list-group-item list-group-item-action hoverable"
+              title="log out"
               @click="logout"
             >
               logout
