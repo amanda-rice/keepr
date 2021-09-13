@@ -14,13 +14,11 @@ class AccountService {
 
   updateAccount(obj) {
     const res = api.put('/account', obj)
-    console.log(res, 'account res')
     AppState.account.name = obj.name
     AppState.account.picture = obj.picture
     if (AppState.activeProfile.id === obj.id) {
       AppState.activeProfile.name = obj.name
       AppState.activeProfile.picture = obj.picture
-      console.log(AppState.activeProfile, 'active prof')
     }
   }
 }

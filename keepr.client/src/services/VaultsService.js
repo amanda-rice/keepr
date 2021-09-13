@@ -31,14 +31,12 @@ class VaultsService {
 
   async createVault(obj) {
     const res = await api.post('/api/vaults', obj)
-    console.log(res.data, 'create vault')
     AppState.vaults.push(res.data)
     AppState.profVaults.push(res.data)
   }
 
   async deleteVault(id) {
     const res = await api.delete(`/api/vaults/${id}`)
-    console.log(res)
   }
 }
 

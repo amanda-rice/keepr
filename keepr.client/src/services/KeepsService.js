@@ -54,7 +54,6 @@ class KeepsService {
 
     AppState.vaultKeeps = AppState.vaultKeeps.filter(k => k.id !== id)
     AppState.keeps = AppState.keeps.filter(k => k.id !== id)
-    console.log(res)
   }
 }
 

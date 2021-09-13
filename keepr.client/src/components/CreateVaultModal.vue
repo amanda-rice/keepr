@@ -1,6 +1,5 @@
 <template>
  <div class="vault-modal container-fluid">
-    <!-- Modal -->
     <div class="modal"
          id="create-vault-modal"
          tabindex="-1"

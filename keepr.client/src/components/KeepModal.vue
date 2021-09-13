@@ -1,6 +1,5 @@
 <template>
- <div class="keep-modal container-fluid">
-    <!-- Modal -->
+ <div class="keep-modal container-fluid def-pointer">
     <div class="modal"
          :id="'keep-modal-'+keep.id"
          tabindex="-1"
@@ -37,8 +36,8 @@
                 </div>
                 <div class="row d-flex justify-content-around align-items-end">
                   <div v-if="account.id" class="col-lg-7 d-flex">
-                    <select v-model="state.vaultKeep.vaultId" @change="addVault">
-                      <option v-for="(value, key) in state.vaults" :key="key" :value="value.id">
+                    <select class="hoverable" v-model="state.vaultKeep.vaultId" @change="addVault">
+                      <option class="hoverable" v-for="(value, key) in state.vaults" :key="key" :value="value.id">
                         {{ value.name }}
                       </option>
                     </select>
@@ -122,5 +121,8 @@ export default {
   .sm-prof-pic{
     height: 30px;
     width: 30px;
+  }
+  .def-pointer{
+    cursor: default;
   }
 </style>

@@ -1,6 +1,5 @@
 <template>
  <div class="keep-modal container-fluid">
-    <!-- Modal -->
     <div class="modal"
          id="create-keep-modal"
          tabindex="-1"
