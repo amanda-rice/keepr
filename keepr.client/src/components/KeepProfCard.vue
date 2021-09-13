@@ -93,8 +93,8 @@ export default {
 }
 .rmv-keep{
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.829);
   
 }

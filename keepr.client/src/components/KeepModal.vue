@@ -25,7 +25,12 @@
                 <div class="d-flex justify-content-around">
                   <p><i class="far fa-eye pr-2" title="views"></i> {{keep.views}}</p>
                   <p><i class="far fa-bookmark pr-2" title="keeps"></i> {{keep.keeps}}</p>
-                  <p><i class="fas fa-share-alt pr-2" title="shares"></i> {{keep.shares}}</p>
+                  <div v-if="account.id && account.id == keep.creatorId">
+                    <p><i class="fas fa-share-alt pr-2 hoverable" title="shares" @click="shareKeep"></i> {{keep.shares}}</p>
+                  </div>
+                  <div v-else>
+                    <p><i class="fas fa-share-alt pr-2" title="shares"></i> {{keep.shares}}</p>
+                  </div>
                 </div>
                 <div>
                   <div class="d-flex justify-content-center align-items-center pb-3 pt-2">
@@ -64,6 +69,7 @@
 
 import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
+import { router } from '../router'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
@@ -87,13 +93,15 @@ export default {
     })
     return {
       state,
+      route,
       async addVault(){
         try {
+          const routeName = route.name
           const id = props.keep.id
           $('#keep-modal-'+ id).modal('hide')
           state.vaultKeep.creatorId = state.account.id
           state.vaultKeep.keepId = props.keep.id
-          const message = await vaultKeepsService.create(state.vaultKeep)
+          const message = await vaultKeepsService.create(state.vaultKeep, routeName.toUpperCase(), route.params.id)
           state.vaultKeep = {}
           Pop.toast('Added to Vault', 'success')
         } catch (error) {
@@ -111,6 +119,9 @@ export default {
         } catch (error) {
           Pop.toast(error, 'error')
         }
+      },
+      shareKeep(){
+        keepsService.shareKeep(props.keep)
       },
       closeModal(){
         $('#keep-modal-'+ props.keep.id).modal('hide')

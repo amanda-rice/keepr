@@ -19,14 +19,12 @@ class KeepsService {
     if (AppState.vaultKeeps[index2]) {
       AppState.vaultKeeps[index2].views++
     }
-    logger.log(res.data)
   }
 
   async getByIdProf(id) {
     const res = await api.get(`/api/keeps/${id}`)
     const index = AppState.keeps.findIndex(k => k.id === id)
     AppState.keeps[index] = res.data
-    logger.log()
   }
 
   async getKeepsByProfile(id) {
@@ -45,6 +43,15 @@ class KeepsService {
     const res = await api.post('/api/keeps', obj)
     AppState.keeps.push(res.data)
     AppState.profKeeps.push(res.data)
+  }
+
+  async shareKeep(obj) {
+    obj.shares++
+    const res = await api.put(`api/keeps/${obj.id}`, obj)
+    if (AppState.activeVault.length > 0) {
+      keepsService.getKeepsByVaultId(obj.AppState.activeVault.id)
+    }
+    keepsService.getKeepsByProfile(obj.creatorId)
   }
 
   async deleteKeep(id) {

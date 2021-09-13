@@ -4,10 +4,20 @@ import { api } from './AxiosService'
 import { keepsService } from './KeepsService'
 
 class VaultKeepsService {
-  async create(obj) {
+  async create(obj, routeName, vaultId) {
+    console.log(routeName)
     const res = await api.post('/api/vaultKeeps/', obj)
     if (res.data) {
-      keepsService.getKeepsByVaultId(obj.vaultId)
+      if (routeName === 'VAULT') {
+        keepsService.getKeepsByVaultId(vaultId)
+        console.log(keepsService.getKeepsByVaultId)
+      }
+      if (routeName === 'PROFILE') {
+        const indexP = AppState.profKeeps.findIndex(k => k.id === obj.keepId)
+        if (AppState.profKeeps[indexP]) {
+          AppState.profKeeps[indexP].keeps++
+        }
+      }
       const indexK = AppState.keeps.findIndex(k => k.id === obj.keepId)
       if (AppState.keeps[indexK]) {
         AppState.keeps[indexK].keeps++
