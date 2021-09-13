@@ -11,15 +11,6 @@ namespace keepr.Repositories
     {
       _db = db;
     }
-    // internal List<VaultKeep> Get()
-    // {
-    //   string sql = @"
-    //     SELECT
-    //       *
-    //     FROM vaultKeep
-    //     ";
-    //   return _db.Query<VaultKeep>(sql).ToList();
-    // }
     internal VaultKeep Get(int id)
     {
       string sql = "SELECT * FROM vaultKeep WHERE id = @id";
@@ -38,21 +29,6 @@ namespace keepr.Repositories
       VaultKeep toReturn = Get(newVaultKeep.Id);
       return toReturn;
     }
-
-    // public VaultKeep Edit(VaultKeep updated)
-    // {
-    //   string sql = @"
-    //   UPDATE vaultKeeps
-    //   SET
-    //     name = @Name,
-    //     description = @Description,
-    //     img = @Img,
-    //     isPrivate = @IsPrivate
-    //   WHERE id = @Id
-    //   ";
-    //   _db.Execute(sql, updated);
-    //   return updated;
-    // }
     public void Delete(int id)
     {
       string sql = "DELETE FROM vaultKeep WHERE id = @id LIMIT 1;";

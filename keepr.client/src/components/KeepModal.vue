@@ -18,7 +18,7 @@
             <div class="row">
               
               <div class="col-md-6">
-                <img class="w-100" :src="keep.img" :alt="keep.name" :title="keep.name">
+                <img class="w-100 max-image" :src="keep.img" :alt="keep.name" :title="keep.name">
               </div>
               <div class="col-md-6 d-flex pt-2 flex-column flex-grow justify-content-between">
                 <div class="d-flex flex-column">
@@ -44,7 +44,9 @@
                     <i v-if="keep.creatorId === account.id" class="fa fa-trash text-warning pl-3 fa-mg hoverable" title="Delete Keep" @click="deleteKeep"></i>
                   </div>
                   <div class="col-lg-5 d-flex align-items-end justify-content-end p-2">
-                    <img class="rounded sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
+                    <router-link :to="{ name: 'Profile', params: {id: keep.creatorId}}" class="nav-link text-dark-grey">
+                      <img class="rounded sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name" @click="closeModal">
+                    </router-link>
                     <p class="pl-3 m-0 pr-1 text-ellipses text-truncate text-right" :title="keep.creator.name"><i>{{keep.creator.name}}</i></p>
                   </div>
                 </div>
@@ -110,6 +112,9 @@ export default {
           Pop.toast(error, 'error')
         }
       },
+      closeModal(){
+        $('#keep-modal-'+ props.keep.id).modal('hide')
+      },
       account: computed(()=>AppState.account)
     }
   },
@@ -121,8 +126,19 @@ export default {
   .sm-prof-pic{
     height: 30px;
     width: 30px;
+      object-fit: cover;
   }
   .def-pointer{
     cursor: default;
   }
+  .max-image{
+    max-height: 50vh;
+    object-fit: cover;
+    border-radius: 2%;
+  }
+  @media only screen and (max-width: 768px) {
+  .max-image {
+    max-height: 30vh;
+  }
+}
 </style>

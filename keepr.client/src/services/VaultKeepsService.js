@@ -1,15 +1,13 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
+import { keepsService } from './KeepsService'
 
 class VaultKeepsService {
   async create(obj) {
     const res = await api.post('/api/vaultKeeps/', obj)
     if (res.data) {
-      const indexPK = AppState.profKeeps.findIndex(k => k.id === obj.keepId)
-      if (AppState.profKeeps[indexPK]) {
-        AppState.profKeeps[indexPK].keeps++
-      }
+      keepsService.getKeepsByVaultId(obj.vaultId)
       const indexK = AppState.keeps.findIndex(k => k.id === obj.keepId)
       if (AppState.keeps[indexK]) {
         AppState.keeps[indexK].keeps++

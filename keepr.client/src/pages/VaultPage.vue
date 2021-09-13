@@ -51,7 +51,7 @@ export default {
         await keepsService.getKeepsByVaultId(route.params.id)
         }
       } catch (error) {
-        Pop.toast(error, 'error')
+        Pop.toast(`You don't have access to this page`, 'error')
       }
     })
     return {

@@ -94,12 +94,12 @@ export default {
     width: 200px;
   }
 }
-/* .big-prof-pic{
-  height: 35vh;
-  max-width: 30vh;
-  background-size: cover;
+.big-prof-pic{
+  height: 40vh;
+  width: 30vh;
+  object-fit: cover;
   position: relative;
-} */
+}
 .profile-titles{
   font-size: 40px;
   font-family: 'Lora', serif;

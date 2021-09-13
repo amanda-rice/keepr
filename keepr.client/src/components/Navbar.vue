@@ -45,12 +45,12 @@
             @click="state.dropOpen = !state.dropOpen"
           >
             <img
-              :src="user.picture"
-              alt="user photo"
+              :src="account.picture"
+              alt="account photo"
               height="40"
               class="rounded"
             />
-            <span class="mx-3 text-dark-grey hoverable">{{ user.name }}</span>
+            <span class="mx-3 text-dark-grey hoverable text-break text-wrap">{{ user.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"

@@ -31,13 +31,7 @@ namespace keepr.Services
     internal List<Keep> GetProfileKeeps(string id, bool isYourProfile)
     {
       List<Keep> keeps;
-      // if(isYourProfile){
         keeps = _repo.GetYourProfileKeeps(id);
-      // }
-      // else
-      // {
-      //   throw new Exception("These aren't your keeps");
-      // }
       return keeps;
     }
     internal Keep Create(Keep newKeep)
@@ -50,9 +44,8 @@ namespace keepr.Services
       Keep original = Get(updatedKeep.Id);
       if (original.CreatorId != updatedKeep.CreatorId)
       {
-        throw new Exception("Hands off Buddy");
+        throw new Exception("You can't edit this keep!");
       }
-      // NOTE these are the same kind of evaluation ('??' Null Coalesing Operator)
       original.Name = updatedKeep.Name ?? original.Name;
       original.Description = updatedKeep.Description ?? original.Description;
       original.Img = updatedKeep.Img ?? original.Img;
