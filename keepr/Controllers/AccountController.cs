@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Services;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
-    [ApiController]
+  [ApiController]
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
@@ -33,6 +32,22 @@ namespace keepr.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+        [HttpPut()]
+        [Authorize]
+        public async Task<ActionResult<Profile>> Edit([FromBody] Profile updatedAccount, int id)
+        {
+        try
+        {
+            Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+            updatedAccount.Id = userInfo.Id;
+            Profile vault = _accountService.Update(updatedAccount);
+            return Ok(vault);
+        }
+        catch (Exception err)
+        {
+            return BadRequest(err.Message);
+        }
         }
     }
 

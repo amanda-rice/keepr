@@ -36,7 +36,7 @@
                 </div>
                 </div>
                 <div class="row d-flex justify-content-around align-items-end">
-                  <div v-if="account.id" class="col-lg-6">
+                  <div v-if="account.id" class="col-lg-7 d-flex">
                     <select v-model="state.vaultKeep.vaultId" @change="addVault">
                       <option v-for="(value, key) in state.vaults" :key="key" :value="value.id">
                         {{ value.name }}
@@ -44,8 +44,8 @@
                     </select>
                     <i v-if="keep.creatorId === account.id" class="fa fa-trash pl-3 fa-mg hoverable" title="Delete Keep" @click="deleteKeep"></i>
                   </div>
-                  <div class="col-lg-6 d-flex align-items-end p-2">
-                    <img class="sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
+                  <div class="col-lg-5 d-flex align-items-end justify-content-end p-2">
+                    <img class="rounded sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
                     <p class="pl-3 m-0 pr-1 text-ellipses text-truncate text-right" :title="keep.creator.name"><i>{{keep.creator.name}}</i></p>
                   </div>
                 </div>

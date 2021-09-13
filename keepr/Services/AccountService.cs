@@ -45,5 +45,13 @@ namespace keepr.Services
             original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
             return _repo.Edit(original);
         }
+        internal Profile Update(Profile updatedAccount)
+        {
+        Profile original = GetProfile(updatedAccount.Id);
+        original.Name = updatedAccount.Name ?? original.Name;
+        original.Picture = updatedAccount.Picture ?? original.Picture;
+        _repo.Update(original);
+        return original;
+        }
     }
 }

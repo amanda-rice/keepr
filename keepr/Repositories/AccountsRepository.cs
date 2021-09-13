@@ -64,5 +64,18 @@ namespace keepr.Repositories
             _db.Execute(sql, update);
             return update;
         }
+    public Profile Update(Profile updated)
+    {
+      string sql = @"
+      UPDATE accounts
+      SET
+        name = @Name,
+        picture = @Picture
+      WHERE id = @Id
+      ";
+      _db.Execute(sql, updated);
+      return updated;
     }
+    }
+    
 }

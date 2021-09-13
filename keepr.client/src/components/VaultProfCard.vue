@@ -35,7 +35,6 @@ export default {
   bottom: 5px;
   left: 10px;
   text-shadow: 2px 2px 10px rgb(0, 0, 0);
-  
 }
 .img-height{
   height: 200px;

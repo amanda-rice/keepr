@@ -3,12 +3,12 @@
     <div class="card img-rounded hoverable" >
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" >
-          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 bg-gradient h-100" data-toggle="modal" 
+          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
-            <h3 class="pl-3 text-light clip-text md-font-size">{{keep.name}}</h3>
+          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2">
+            <h3 class="pl-3 text-light white-text-shadow clip-text md-font-size">{{keep.name}}</h3>
             <div>
-                <img class="sm-prof-img mt-1 mr-3 mb-2" :src="keep.creator.picture" :alt="keep.creator.name" @click.stop="goToProfile">
+                <img class="sm-prof-img mt-1 mr-3 mb-2" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name" @click.stop="goToProfile">
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default {
   width: 30px;
   border-radius: 50%;
 }
- .bg-gradient {
+ /* .bg-gradient {
     background-image:
     linear-gradient(to bottom, rgba(8, 9, 15, 0.144), rgba(17, 15, 17, 0.788));
     background-size: cover;
@@ -86,7 +86,7 @@ export default {
     position: absolute;
     bottom:-2px;
     left: -2px;
-} 
+}  */
 @media only screen and (max-width: 768px) {
   .md-font-size {
     font-size: 22px;

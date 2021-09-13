@@ -2,13 +2,14 @@
   <div class="container-fluid home flex-grow-1 d-flex flex-column m-4">
     <div class="row align-items-start p-3">
       <div class="col-md-3">
-        <img class="w-100" :src="state.profile.picture" :alt="state.profile.name">
+        <img class=" rounded big-prof-pic w-100" :src="state.profile.picture" :alt="state.profile.name">
       </div>
       <div class="pl-4 col-md-9 d-flex flex-column align-items-start justify-content-end">
         <h1 class="text-break text-wrap">{{state.profile.name}}</h1>
         <h5>Vaults: {{state.profVaults.length}} </h5>
         <h5>Keeps: {{state.profKeeps.length}}</h5>
-        <i v-if="route.params.id === account.id" class="fas fa-edit fa-2x hoverable" title="Edit Profile" @click="editProfile"></i>
+        <i v-if="route.params.id === account.id" class="fas fa-edit fa-2x hoverable" title="Edit Profile" data-toggle="modal" 
+          data-target="#update-account-modal"></i>
       </div>
     </div>
     <div class="row">
@@ -39,6 +40,7 @@
           <KeepProfCard :keep="k" />
         </div>
     </div>
+    <UpdateProfileModal/>
     <CreateVaultModal/>
     <CreateKeepModal/>
   </div>
@@ -92,4 +94,10 @@ export default {
     width: 200px;
   }
 }
+/* .big-prof-pic{
+  height: 35vh;
+  max-width: 30vh;
+  background-size: cover;
+  position: relative;
+} */
 </style>

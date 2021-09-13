@@ -3,10 +3,10 @@
       <div class="card-body p-0">
         <div class="img-total">
           <img class="w-100 img-rounded" :src="keep.img" :alt="keep.name" :title="keep.name">
-          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 bg-gradient h-100 " data-toggle="modal" 
+          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 " data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
           <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
-            <i class="fas fa-times rmv-keep fa-lg text-light hoverable" title="Remove Keep from Vault" @click.stop="removeKeep"></i>
+            <i class="fas fa-times rmv-keep fa-lg text-light white-text-shadow hoverable" title="Remove Keep from Vault" @click.stop="removeKeep"></i>
           </div>
             <h5 class="text-light w-100 text-center text-break text-wrap pl-2">{{keep.name}}</h5>
           </div>
