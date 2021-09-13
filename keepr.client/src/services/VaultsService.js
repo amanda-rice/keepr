@@ -17,7 +17,9 @@ class VaultsService {
 
   async getVaultsByProfileNotKeep(id, keepId) {
     const res = await api.get(`/api/profiles/${id}/vaults`)
-    AppState.selProfVaults = res.data.filter(v => (v.id !== keepId))
+    const vaultsByKeep = await api.get(`/api/keeps/${keepId}/vaults`)
+    const notInside = res.data.filter(v => !vaultsByKeep.data.find(vk => vk.id === v.id))
+    AppState.selProfVaults = notInside
     logger.log(res.data)
   }
 

@@ -1,11 +1,11 @@
 <template>
-    <div v-if="vaultKeeps.find(k => k.id === keep.id)" class="card img-rounded">
+    <div class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded selectable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
+          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
           <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
-            <i class="fas fa-times rmv-keep fa-lg text-light selectable" title="Remove Keep from Vault" @click="removeKeep"></i>
+            <i class="fas fa-times rmv-keep fa-lg text-light hoverable" title="Remove Keep from Vault" @click="removeKeep"></i>
           </div>
           <div class="img-text d-flex align-items-center w-100 pr-2">
             <h5 class="text-light w-100 text-center text-break text-wrap pl-2">{{keep.name}}</h5>
@@ -37,7 +37,7 @@ export default {
     const route = useRoute()
     watchEffect(async ()=>{
       try {
-        await keepsService.getKeepsByVaultId(AppState.activeVault.id)
+        //await keepsService.getKeepsByVaultId(route.params.id)
       } catch (error) {
         Pop.toast(error, 'error')
       }
@@ -46,6 +46,7 @@ export default {
       route,
       async getKeep(){
         try {
+        await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
           await keepsService.getById(props.keep.id, route.params.id)
         } catch (error) {
           Pop.toast(error, 'error')
@@ -74,7 +75,6 @@ export default {
       },
       activeVault: computed(()=> AppState.activeVault),
       account: computed(()=> AppState.account),
-      vaultKeeps: computed(()=> AppState.vaultKeeps),
     }
   },
   components:{}

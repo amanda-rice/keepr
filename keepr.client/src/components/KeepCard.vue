@@ -3,7 +3,7 @@
     <div class="card img-rounded">
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded selectable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
+          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
           <div class="img-text d-flex justify-content-between w-100 pl-3 pr-4 pb-2">
             <h3 class="text-light text-break text-wrap">{{keep.name}}</h3>
@@ -38,10 +38,16 @@ export default {
   },
   setup(props){
     const route = useRoute()
+    const state = reactive({
+      account: computed(()=> AppState.account)
+    })
     return {
       async getKeep(){
         try {
-          await keepsService.getByIdProf(props.keep.id)
+          if(state.account.id){
+            await keepsService.getByIdProf(props.keep.id)
+          }
+        await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
         } catch (error) {
           Pop.toast(error, 'error')
         }

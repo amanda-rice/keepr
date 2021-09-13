@@ -11,10 +11,14 @@ class KeepsService {
 
   async getById(id) {
     const res = await api.get(`/api/keeps/${id}`)
-    let index = AppState.profKeeps.findIndex(k => k.id === id)
-    AppState.profKeeps[index] = res.data
-    index = AppState.vaultKeeps.findIndex(k => k.id === id)
-    AppState.vaultKeeps[index] = res.data
+    const index = AppState.profKeeps.findIndex(k => k.id === id)
+    if (AppState.profKeeps[index]) {
+      AppState.profKeeps[index].views++
+    }
+    const index2 = AppState.vaultKeeps.findIndex(k => k.id === id)
+    if (AppState.vaultKeeps[index2]) {
+      AppState.vaultKeeps[index2].views++
+    }
     logger.log(res.data)
   }
 
@@ -34,7 +38,7 @@ class KeepsService {
   async getKeepsByVaultId(id) {
     const res = await api.get(`/api/vaults/${id}/keeps`)
     AppState.vaultKeeps = res.data
-    logger.log(res.data)
+    logger.log(res.data, 'vaultKeeps')
   }
 
   async createKeep(obj) {

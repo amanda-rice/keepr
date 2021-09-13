@@ -1,5 +1,6 @@
 <template>
   <div class="py-2">
+    <h1>{{vault.isPrivate?'Private':'Public'}}</h1>
     <router-link :to="{ name: 'Vault', params: {id: vault.id}}">
       <img class="w-100 img-height img-rounded" :src="vault.img" :alt="vault.name" :title="vault.name">
     </router-link>

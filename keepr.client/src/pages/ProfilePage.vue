@@ -8,7 +8,7 @@
         <h1 class="text-break text-wrap">{{state.profile.name}}</h1>
         <h5>Vaults: {{state.profVaults.length}} </h5>
         <h5>Keeps: {{state.profKeeps.length}}</h5>
-        <i v-if="route.params.id === account.id" class="fas fa-edit fa-2x selectable" @click="editProfile"></i>
+        <i v-if="route.params.id === account.id" class="fas fa-edit fa-2x hoverable" title="Edit Profile" @click="editProfile"></i>
       </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
             <h1 class="m-0 text-left">
               Vaults
             </h1>
-            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
+            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" title="Create Vault" data-toggle="modal" 
           data-target="#create-vault-modal"></i>
           </div>
           <div class="col-md-4 col-lg-2" v-for="v in state.profVaults" :key="v.id">
@@ -30,7 +30,7 @@
             <h1 class="text-left m-0">
               Keeps
             </h1>
-            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" data-toggle="modal" 
+            <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3" title="Create Keep" data-toggle="modal" 
           data-target="#create-keep-modal"></i>
           </div>
     </div>

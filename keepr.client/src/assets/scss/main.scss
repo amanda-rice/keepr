@@ -25,3 +25,26 @@ main {
 .img-rounded{
   border-radius: 10%;
 }
+*{
+  font-family: 'Roboto', sans-serif;
+}
+h1 {
+    font-family: 'Lora', serif;
+}
+.nav-border{
+  border-bottom: solid;
+  border-width: 1px;
+}
+.body-scroll{
+  max-height: 75vh;
+  max-width: 90vw;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+.text-ellipses{
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+.hoverable{
+  cursor: pointer;
+}

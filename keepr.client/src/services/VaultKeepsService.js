@@ -10,10 +10,10 @@ class VaultKeepsService {
       if (AppState.profKeeps[indexPK]) {
         AppState.profKeeps[indexPK].keeps++
       }
-      const indexVK = AppState.vaultKeeps.findIndex(k => k.id === obj.keepId)
-      if (AppState.vaultKeeps[indexVK]) {
-        AppState.vaultKeeps[indexVK].keeps++
-      }
+      // const indexVK = AppState.vaultKeeps.findIndex(k => k.id === obj.keepId)
+      // if (AppState.vaultKeeps[indexVK]) {
+      //   AppState.vaultKeeps[indexVK].keeps++
+      // }
       const indexK = AppState.keeps.findIndex(k => k.id === obj.keepId)
       if (AppState.keeps[indexK]) {
         AppState.keeps[indexK].keeps++

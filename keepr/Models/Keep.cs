@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace keepr.Models
 {
     public class Keep
@@ -7,6 +9,7 @@ namespace keepr.Models
     public string Name { get; set; }
     public string Description { get; set; }
     public string Img { get; set; }
+    [Range(1, 9000)]
     public int Views{ get; set; }
     public int Shares { get; set; }
     public int Keeps { get; set; }

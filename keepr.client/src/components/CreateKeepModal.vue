@@ -51,10 +51,10 @@
               >
             </div>
             <div>
-              <button v-if="state.createKeep" type="submit" class="btn btn-primary mr-3">
+              <button v-if="state.createKeep" type="submit" class="btn btn-success mr-3">
                 Save
               </button>
-              <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal" @click="closeModal">
+              <button type="button" class="btn btn-primary closeModal" data-dismiss="modal" @click="closeModal">
                 Close
               </button>
             </div>

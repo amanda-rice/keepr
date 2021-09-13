@@ -4,9 +4,10 @@
       <div class="col-12">
         <div class="d-flex align-items-start">
           <h1 class="m-0">{{state.activeVault.name}}</h1>
-          <i v-if="account.id === state.activeVault.creatorId" class="fa fa-trash pl-3 pt-3 fa-lg selectable" @click="deleteVault" title="Delete Vault"></i>
+          <i v-if="account.id === state.activeVault.creatorId" class="fa fa-trash pl-3 pt-3 fa-lg hoverable" @click="deleteVault" title="Delete Vault"></i>
         </div>
         <h3>Keeps: {{state.vaultKeeps.length}}</h3>
+        <h1>{{state.activeVault.isPrivate?'Private':'Public'}}</h1>
       </div>
     </div>
     <div class="card-columns">
@@ -15,6 +16,7 @@
         </div>
     </div>
   </div>
+  <!-- <p v-else>You don't have access to this page</p> -->
 </template>
 
 
@@ -37,8 +39,17 @@ export default {
 
     watchEffect(async() => {
       try {
+        if(route.params.id){
         await vaultsService.getVaultById(route.params.id)
+        }
+      } catch (error) {
+        router.push({name: 'Home'})
+        Pop.toast(`You don't have access to this page`, 'error')
+      }
+      try {
+        if(route.params.id){
         await keepsService.getKeepsByVaultId(route.params.id)
+        }
       } catch (error) {
         Pop.toast(error, 'error')
       }

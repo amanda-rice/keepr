@@ -15,38 +15,38 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body body-scroll">
             <div class="row">
               
-              <div class="col-6">
+              <div class="col-md-6">
                 <img class="w-100" :src="keep.img" :alt="keep.name" :title="keep.name">
               </div>
-              <div class="col-6 d-flex flex-column flex-grow justify-content-between">
+              <div class="col-md-6 d-flex pt-2 flex-column flex-grow justify-content-between">
                 <div class="d-flex flex-column">
                 <div class="d-flex justify-content-around">
-                  <p>Views: {{keep.views}}</p>
-                  <p>Keeps: {{keep.keeps}}</p>
-                  <p>Shares: {{keep.shares}}</p>
+                  <p><i class="far fa-eye pr-2" title="views"></i> {{keep.views}}</p>
+                  <p><i class="far fa-bookmark pr-2" title="keeps"></i> {{keep.keeps}}</p>
+                  <p><i class="fas fa-share-alt pr-2" title="shares"></i> {{keep.shares}}</p>
                 </div>
                 <div>
                   <div class="d-flex justify-content-center align-items-center pb-3 pt-2">
                     <h3 class="text-wrap text-break m-0">{{keep.name}}</h3>
-                    <i class="fa fa-trash pl-3 fa-lg" @click="deleteKeep"></i>
                   </div>
                   <p class="text-left text-wrap text-break">{{keep.description}}</p>
                 </div>
                 </div>
-                <div class="row d-flex justify-content-around">
-                  <div class="col-md-6">
+                <div class="row d-flex justify-content-around align-items-end">
+                  <div v-if="account.id" class="col-lg-6">
                     <select v-model="state.vaultKeep.vaultId" @change="addVault">
                       <option v-for="(value, key) in state.vaults" :key="key" :value="value.id">
                         {{ value.name }}
                       </option>
                     </select>
+                    <i v-if="keep.creatorId === account.id" class="fa fa-trash pl-3 fa-mg hoverable" title="Delete Keep" @click="deleteKeep"></i>
                   </div>
-                  <div class="col-md-6 d-flex align-items-center">
+                  <div class="col-lg-6 d-flex align-items-end p-2">
                     <img class="sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">
-                    <p class="pl-3 pr-1 text-break text-wrap text-right"><i>{{keep.creator.name}}</i></p>
+                    <p class="pl-3 m-0 pr-1 text-ellipses text-truncate text-right"><i>{{keep.creator.name}}</i></p>
                   </div>
                 </div>
               </div>
@@ -84,13 +84,6 @@ export default {
       account: computed(() => AppState.account),
       vaults: computed(()=> AppState.selProfVaults)
     })
-    watchEffect(async() => {
-      try {
-        await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
-      } catch (error) {
-        Pop.toast(error, 'error')
-      }
-    })
     return {
       state,
       async addVault(){
@@ -117,7 +110,9 @@ export default {
         } catch (error) {
           Pop.toast(error, 'error')
         }
-      }}
+      },
+      account: computed(()=>AppState.account)
+    }
   },
 }
 </script>
