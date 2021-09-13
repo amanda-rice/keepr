@@ -58,11 +58,12 @@ h1 {
 .gs:hover {
     -webkit-filter: grayscale(60%);
     filter: grayscale(60%);
-    filter: opacity();
 }
 .hover-here:hover .hover-show{
   display: block;
+  
 }
 .hover-show{
   display:none;
+  font-family: 'Lora', serif;
 }

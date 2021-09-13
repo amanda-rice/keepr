@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div class="card img-rounded hoverable" >
+    <div class="card img-rounded hoverable hover-here" >
       <div class="card-body p-0">
         <div class="img-total">
-          <img class="w-100 img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
+          <img class="w-100 gs img-rounded hoverable" :src="keep.img" :alt="keep.name" :title="keep.name" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
+          <div class="hover-show ">
           <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2">
-            <h3 class="pl-3 text-light white-text-shadow clip-text md-font-size">{{keep.name}}</h3>
+            <h3 class="pl-3 pr-2 text-light white-text-shadow clip-text md-font-size">{{keep.name}}</h3>
             <div>
                 <img class="sm-prof-img mt-1 mr-3 mb-2" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name" @click.stop="goToProfile">
+            </div>
             </div>
           </div>
         </div>

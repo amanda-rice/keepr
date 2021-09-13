@@ -10,7 +10,7 @@
           <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
             <i class="fas fa-times rmv-keep fa-lg text-light white-text-shadow hoverable" title="Remove Keep from Vault" @click.stop="removeKeep"></i>
           </div>
-          <h5 class="text-light w-100 text-center text-break text-wrap pl-2 img-text">{{keep.name}}</h5>
+          <h5 class="text-light w-100 text-center text-break text-wrap pl-2 pr-2 img-text">{{keep.name}}</h5>
         </div>
       </div>
     </div>
