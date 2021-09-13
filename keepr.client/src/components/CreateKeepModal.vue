@@ -14,6 +14,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
+            <h3>Create Keep</h3>
           </div>
           <div class="modal-body">
             <form @submit.prevent="createKeep">
@@ -51,11 +52,11 @@
               >
             </div>
             <div>
-              <button v-if="state.createKeep" type="submit" class="btn btn-success mr-3">
-                Save
+              <button v-if="state.createKeep" type="submit" class="btn btn-success mr-3" title="Create vault">
+                Create
               </button>
-              <button type="button" class="btn btn-primary closeModal" data-dismiss="modal" @click="closeModal">
-                Close
+              <button type="button" class="btn btn-primary closeModal" title="Close modal" data-dismiss="modal" @click="closeModal">
+                <b>Close</b>
               </button>
             </div>
           </form>
@@ -115,5 +116,8 @@ export default {
   .sm-prof-pic{
     height: 30px;
     width: 30px;
+  }
+  h3{
+    font-family: 'Lora', serif;
   }
 </style>

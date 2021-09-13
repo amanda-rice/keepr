@@ -14,6 +14,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
+            <h3 class="m-0">Edit Account</h3>
           </div>
           <div class="modal-body">
             <form @submit.prevent="updateAccount">
@@ -41,7 +42,7 @@
             </div>
             <div>
               <button v-if="state.updatedAccount" type="submit" class="btn btn-success mr-3">
-                Save
+                <b>Save</b>
               </button>
               <button type="button" class="btn btn-primary closeModal" data-dismiss="modal" @click="closeModal">
                 Close
@@ -98,5 +99,8 @@ export default {
   .sm-prof-pic{
     height: 30px;
     width: 30px;
+  }
+  h3{
+    font-family: 'Lora', serif;
   }
 </style>

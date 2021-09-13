@@ -16,9 +16,9 @@
       <div class="col-12">
         <div class="row">
           <div class="col-12 pb-4 d-flex">
-            <h1 class="m-0 text-left">
+            <h5 class="m-0 profile-titles text-left">
               Vaults
-            </h1>
+            </h5>
             <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3 hoverable" title="Create Vault" data-toggle="modal" 
           data-target="#create-vault-modal"></i>
           </div>
@@ -28,9 +28,9 @@
         </div>
       </div>
       <div class="col-12 pb-4 pt-2 d-flex">
-            <h1 class="text-left m-0">
+            <h5 class="text-left profile-titles m-0">
               Keeps
-            </h1>
+            </h5>
             <i v-if="route.params.id === account.id" class="fas fa-plus pt-2 fa-2x pl-3 hoverable" title="Create Keep" data-toggle="modal" 
           data-target="#create-keep-modal"></i>
           </div>
@@ -100,4 +100,8 @@ export default {
   background-size: cover;
   position: relative;
 } */
+.profile-titles{
+  font-size: 40px;
+  font-family: 'Lora', serif;
+}
 </style>

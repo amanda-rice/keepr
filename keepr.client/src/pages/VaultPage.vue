@@ -39,7 +39,7 @@ export default {
 
     watchEffect(async() => {
       try {
-        if(route.params.id){
+        if(route.params.id && !isNaN(route.params.id)){
         await vaultsService.getVaultById(route.params.id)
         }
       } catch (error) {
@@ -47,7 +47,7 @@ export default {
         Pop.toast(`You don't have access to this page`, 'error')
       }
       try {
-        if(route.params.id){
+        if(route.params.id && !isNaN(route.params.id)){
         await keepsService.getKeepsByVaultId(route.params.id)
         }
       } catch (error) {
