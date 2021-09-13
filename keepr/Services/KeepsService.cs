@@ -28,6 +28,15 @@ namespace keepr.Services
       found.Views++;
       return _repo.Edit(found);
     }
+    internal Keep GetById(int id)
+    {
+      Keep found = _repo.Get(id);
+      if (found == null)
+      {
+        throw new Exception("Invalid ID");
+      }
+      return found;
+    }
     internal List<Keep> GetProfileKeeps(string id, bool isYourProfile)
     {
       List<Keep> keeps;
@@ -57,7 +66,7 @@ namespace keepr.Services
     }
     internal void Delete(int id, string userId)
     {
-      Keep deleteItem = Get(id);
+      Keep deleteItem = GetById(id);
       if(deleteItem.CreatorId != userId)
       {
         throw new Exception("You can only delete your own keeps");

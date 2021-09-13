@@ -89,9 +89,20 @@ export default {
     bottom:-2px;
     left: -2px;
 }  */
+h3{
+    font-family: 'Lora', serif;
+  }
 @media only screen and (max-width: 768px) {
   .md-font-size {
     font-size: 22px;
   }
+  
+}
+.clip-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  max-width: 95%;
 }
 </style>

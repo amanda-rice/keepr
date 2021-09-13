@@ -54,7 +54,7 @@ namespace keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        Keep keep = _kService.Get(id);
+        Keep keep = _kService.GetById(id);
         List<VaultByKeepModel> vault;
         if(userInfo != null){
         vault = _vaService.GetVaultsByKeepId(id, userInfo.Id, keep);

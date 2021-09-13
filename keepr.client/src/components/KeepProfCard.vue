@@ -108,6 +108,16 @@ export default {
     bottom:-2px;
     left: -2px;
 } 
-
+h5{
+    font-family: 'Lora', serif;
+  }
+.clip-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  max-width: 95%;
+  font-family: 'Lora', serif;
+}
 
 </style>
