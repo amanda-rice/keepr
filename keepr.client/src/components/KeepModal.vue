@@ -42,7 +42,7 @@
                         {{ value.name }}
                       </option>
                     </select>
-                    <i v-if="keep.creatorId === account.id" class="fa fa-trash pl-3 fa-mg hoverable" title="Delete Keep" @click="deleteKeep"></i>
+                    <i v-if="keep.creatorId === account.id" class="fa fa-trash text-warning pl-3 fa-mg hoverable" title="Delete Keep" @click="deleteKeep"></i>
                   </div>
                   <div class="col-lg-5 d-flex align-items-end justify-content-end p-2">
                     <img class="rounded sm-prof-pic" :src="keep.creator.picture" :alt="keep.creator.name" :title="keep.creator.name">

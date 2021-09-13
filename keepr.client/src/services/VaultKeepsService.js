@@ -10,10 +10,6 @@ class VaultKeepsService {
       if (AppState.profKeeps[indexPK]) {
         AppState.profKeeps[indexPK].keeps++
       }
-      // const indexVK = AppState.vaultKeeps.findIndex(k => k.id === obj.keepId)
-      // if (AppState.vaultKeeps[indexVK]) {
-      //   AppState.vaultKeeps[indexVK].keeps++
-      // }
       const indexK = AppState.keeps.findIndex(k => k.id === obj.keepId)
       if (AppState.keeps[indexK]) {
         AppState.keeps[indexK].keeps++
@@ -24,10 +20,7 @@ class VaultKeepsService {
 
   async remove(id) {
     const res = await api.delete('/api/vaultKeeps/' + id)
-    const indexVK = AppState.vaultKeeps.findIndex(k => k.id === id)
-    if (AppState.vaultKeeps[indexVK]) {
-      AppState.vaultKeeps.splice(indexVK, 1)
-    }
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(k => k.id !== id)
     console.log(AppState.vaultKeeps, 'Vault Keeps')
     return res
   }

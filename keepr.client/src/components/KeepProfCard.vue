@@ -1,15 +1,15 @@
 <template>
     <div class="card img-rounded hoverable" >
       <div class="card-body p-0">
-        <div class="img-total">
-          <img class="w-100 img-rounded" :src="keep.img" :alt="keep.name" :title="keep.name">
-          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 " data-toggle="modal" 
+        <div class="img-total" data-toggle="modal" 
           :data-target="'#keep-modal-'+keep.id" @click="getKeep">
-          <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
-            <i class="fas fa-times rmv-keep fa-lg text-light white-text-shadow hoverable" title="Remove Keep from Vault" @click.stop="removeKeep"></i>
-          </div>
-            <h5 class="text-light w-100 text-center text-break text-wrap pl-2">{{keep.name}}</h5>
-          </div>
+          <img class="w-100 img-rounded" :src="keep.img" :alt="keep.name" :title="keep.name">
+          <div class="img-text d-flex justify-content-between align-items-end w-100 pl-3 pr-4 pb-2 " >
+        </div>
+            <div v-if="route.name == 'Vault' && activeVault.creatorId == account.id">
+              <i class="fas fa-times rmv-keep fa-lg text-light white-text-shadow hoverable" title="Remove Keep from Vault" @click.stop="removeKeep"></i>
+            </div>
+            <h5 class="text-light w-100 text-center text-break text-wrap pl-2 img-text">{{keep.name}}</h5>
         </div>
       </div>
       <KeepModal v-if="keep.id" :keep="keep" />
@@ -35,18 +35,13 @@ export default {
   },
   setup(props){
     const route = useRoute()
-    watchEffect(async ()=>{
-      try {
-        //await keepsService.getKeepsByVaultId(route.params.id)
-      } catch (error) {
-        Pop.toast(error, 'error')
-      }
-    })
     return {
       route,
       async getKeep(){
         try {
-        await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
+          if(this.account.id){
+            await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
+          }
           await keepsService.getById(props.keep.id, route.params.id)
         } catch (error) {
           Pop.toast(error, 'error')
@@ -56,6 +51,7 @@ export default {
         try {
           if(await Pop.confirm()){
             await vaultKeepsService.remove(props.keep.vaultKeepId)
+            await keepsService.getKeepsByVaultId(AppState.activeVault.id)
             Pop.toast('Removed Keep Successfully', 'success')
           }
         } catch (error) {
@@ -97,7 +93,7 @@ export default {
   position: absolute;
   top: 20px;
   right: 20px;
-  text-shadow: 2px 2px rgba(0, 0, 0, 0.582);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.829);
   
 }
  .bg-gradient {

@@ -23,6 +23,11 @@
             Home
           </router-link>
         </li>
+        <li v-if="account.id" class="nav-item" title="Go to your Profile Page">
+          <router-link :to="{ name: 'Profile', params: {id: account.id}}" class="nav-link text-dark-grey">
+            Profile
+          </router-link>
+        </li>
       </ul>
       <span class="navbar-text">
         <button
@@ -77,6 +82,7 @@ export default {
     })
     return {
       state,
+      account: computed(()=>AppState.account),
       user: computed(() => AppState.user),
       async login() {
         AuthService.loginWithPopup()

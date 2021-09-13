@@ -49,18 +49,11 @@ class KeepsService {
 
   async deleteKeep(id) {
     const res = await api.delete(`/api/keeps/${id}`)
-    const indexPK = AppState.profKeeps.findIndex(k => k.id === id)
-    if (indexPK) {
-      AppState.profKeeps.splice(indexPK, 1)
-    }
-    const indexVK = AppState.vaultKeeps.findIndex(k => k.id === id)
-    if (indexVK) {
-      AppState.vaultKeeps.splice(indexVK, 1)
-    }
-    const indexK = AppState.keeps.findIndex(k => k.id === id)
-    if (indexK) {
-      AppState.keeps.splice(indexK, 1)
-    }
+
+    AppState.profKeeps = AppState.profKeeps.filter(k => k.id !== id)
+
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(k => k.id !== id)
+    AppState.keeps = AppState.keeps.filter(k => k.id !== id)
     console.log(res)
   }
 }

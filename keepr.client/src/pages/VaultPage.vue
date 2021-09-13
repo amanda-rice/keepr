@@ -2,16 +2,16 @@
   <div class="component container-fluid">
     <div class="row pb-5">
       <div class="col-12">
-        <div class="d-flex align-items-start">
+        <div class="d-flex align-items-start py-1">
           <h1 class="m-0">{{state.activeVault.name}}</h1>
-          <i v-if="account.id === state.activeVault.creatorId" class="fa fa-trash pl-3 pt-3 fa-lg hoverable" @click="deleteVault" title="Delete Vault"></i>
+          <i v-if="account.id === state.activeVault.creatorId" class="fa fa-trash pl-3 pt-3 text-warning fa-lg hoverable" @click="deleteVault" title="Delete Vault"></i>
         </div>
-        <h3>Keeps: {{state.vaultKeeps.length}}</h3>
+        <h3 class="py-1">Keeps: {{vaultKeeps.length}}</h3>
         <h3 class="text-dark-grey"><i>{{state.activeVault.isPrivate?'Private':'Public'}}</i></h3>
       </div>
     </div>
     <div class="card-columns">
-        <div v-for="k in state.vaultKeeps" :key="k.id">
+        <div v-for="k in vaultKeeps" :key="k.id">
           <KeepProfCard :keep="k" />
         </div>
     </div>
@@ -34,7 +34,7 @@ export default {
     const route = useRoute()
     const state = reactive({
       activeVault: computed(() => AppState.activeVault),
-      vaultKeeps: computed(()=> AppState.vaultKeeps),
+      
     })
 
     watchEffect(async() => {
@@ -68,7 +68,8 @@ export default {
           Pop.toast(error, 'error')
         }
       },
-      account: computed(()=>AppState.account)
+      account: computed(()=>AppState.account),
+      vaultKeeps: computed(()=> AppState.vaultKeeps),
     }
   },
   components:{}

@@ -45,8 +45,8 @@ export default {
         try {
           if(state.account.id){
             await keepsService.getByIdProf(props.keep.id)
+            await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
           }
-        await vaultsService.getVaultsByProfileNotKeep(AppState.account.id, props.keep.id)
         } catch (error) {
           Pop.toast(error, 'error')
         }
