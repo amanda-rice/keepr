@@ -67,3 +67,51 @@ h1 {
   display:none;
   font-family: 'Lora', serif;
 }
+  @media only screen and (min-width: 1500px) {
+  .md-font-size {
+    font-size: 45px;
+  }
+  .sm-font-size {
+    font-size: 30px;
+  }
+  .sm-prof-img{
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+}
+  @media only screen and (max-width: 1500px) {
+  .md-font-size {
+    font-size: 30px;
+  }
+  .sm-font-size {
+    font-size: 22px;
+  }
+  .sm-prof-img{
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
+}
+@media only screen and (max-width: 1000px) {
+  .md-font-size {
+    font-size: 22px;
+  }
+  .sm-font-size {
+    font-size: 18px;
+  }
+  .sm-prof-img{
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+}
+@media only screen and (max-width: 768px) {
+  .md-font-size {
+    font-size: 24px;
+  }
+  .sm-font-size {
+    font-size: 24px;
+  }
+  
+}

@@ -74,11 +74,7 @@ export default {
   text-shadow: 2px 2px 10px rgb(0, 0, 0);
   
 }
-.sm-prof-img{
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-}
+
  /* .bg-gradient {
     background-image:
     linear-gradient(to bottom, rgba(8, 9, 15, 0.144), rgba(17, 15, 17, 0.788));
@@ -92,12 +88,7 @@ export default {
 h3{
     font-family: 'Lora', serif;
   }
-@media only screen and (max-width: 768px) {
-  .md-font-size {
-    font-size: 22px;
-  }
-  
-}
+
 .clip-text {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -105,4 +96,5 @@ h3{
   overflow-y: hidden;
   max-width: 95%;
 }
+
 </style>
