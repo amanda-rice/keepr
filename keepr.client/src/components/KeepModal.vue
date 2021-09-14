@@ -134,11 +134,6 @@ export default {
 
 
 <style lang="scss" scoped>
-  .sm-prof-pic{
-    height: 30px;
-    width: 30px;
-      object-fit: cover;
-  }
   .def-pointer{
     cursor: default;
   }
