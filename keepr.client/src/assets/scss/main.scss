@@ -63,13 +63,17 @@ h1 {
   display: block;
   
 }
+  .sm-prof-pic{
+    height: 30px;
+    width: 30px;
+  }
 .hover-show{
   display:none;
   font-family: 'Lora', serif;
 }
   @media only screen and (min-width: 1500px) {
   .md-font-size {
-    font-size: 45px;
+    font-size: 28px;
   }
   .sm-font-size {
     font-size: 30px;
@@ -78,20 +82,29 @@ h1 {
   height: 60px;
   width: 60px;
   border-radius: 50%;
+      object-fit: cover;
 }
+ .card-columns {
+        column-count: 5;
+    }
+
 }
   @media only screen and (max-width: 1500px) {
   .md-font-size {
-    font-size: 30px;
+    font-size: 28px;
   }
   .sm-font-size {
     font-size: 22px;
   }
   .sm-prof-img{
-  height: 45px;
-  width: 45px;
+  height: 35px;
+  width: 35px;
   border-radius: 50%;
+      object-fit: cover;
 }
+.card-columns {
+        column-count: 4;
+    }
 }
 @media only screen and (max-width: 1000px) {
   .md-font-size {
@@ -101,10 +114,14 @@ h1 {
     font-size: 18px;
   }
   .sm-prof-img{
-  height: 30px;
-  width: 30px;
+  height: 26px;
+  width: 26px;
   border-radius: 50%;
+  object-fit: cover;
 }
+.card-columns {
+        column-count: 3;
+    }
 }
 @media only screen and (max-width: 768px) {
   .md-font-size {
@@ -113,5 +130,13 @@ h1 {
   .sm-font-size {
     font-size: 24px;
   }
-  
+  .sm-prof-img{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+      object-fit: cover;
+}
+  .card-columns {
+        column-count: 1;
+    }
 }

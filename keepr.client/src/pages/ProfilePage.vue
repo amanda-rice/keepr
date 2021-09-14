@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid home flex-grow-1 d-flex flex-column m-4">
     <div class="row align-items-start p-3">
-      <div class="col-md-3">
+      <div class="col-md-6 col-lg-3">
         <img class=" rounded big-prof-pic w-100" :src="state.profile.picture" :alt="state.profile.name">
       </div>
-      <div class="pl-4 col-md-9 d-flex flex-column align-items-start justify-content-end">
+      <div class="pl-4 col-md-6 col-lg-9 d-flex flex-column align-items-start justify-content-end">
         <h1 class="text-break text-wrap">{{state.profile.name}}</h1>
         <h5>Vaults: {{state.profVaults.length}} </h5>
         <h5>Keeps: {{state.profKeeps.length}}</h5>
