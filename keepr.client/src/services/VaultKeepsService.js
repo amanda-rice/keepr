@@ -5,12 +5,10 @@ import { keepsService } from './KeepsService'
 
 class VaultKeepsService {
   async create(obj, routeName, vaultId) {
-    console.log(routeName)
     const res = await api.post('/api/vaultKeeps/', obj)
     if (res.data) {
       if (routeName === 'VAULT') {
         keepsService.getKeepsByVaultId(vaultId)
-        console.log(keepsService.getKeepsByVaultId)
       }
       if (routeName === 'PROFILE') {
         const indexP = AppState.profKeeps.findIndex(k => k.id === obj.keepId)
