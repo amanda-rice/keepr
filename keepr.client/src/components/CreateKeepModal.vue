@@ -109,8 +109,6 @@ export default {
   },
 }
 </script>
-
-
 <style lang="scss" scoped>
   .sm-prof-pic{
     height: 30px;
