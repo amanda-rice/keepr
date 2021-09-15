@@ -75,6 +75,10 @@ export default {
     })
     return {
       state,
+      /**
+       * Set the updatedAccount object's id to the user's account id
+       * Send object to the service to update the account
+       **/
       async updateAccount(){
         try {
           state.updatedAccount.id = state.account.id

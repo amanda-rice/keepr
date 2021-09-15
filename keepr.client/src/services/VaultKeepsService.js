@@ -4,6 +4,13 @@ import { api } from './AxiosService'
 import { keepsService } from './KeepsService'
 
 class VaultKeepsService {
+  /**
+   *
+   * @param {object} obj
+   * @param {string} routeName
+   * @param {number} vaultId
+   * @returns
+   */
   async create(obj, routeName, vaultId) {
     const res = await api.post('/api/vaultKeeps/', obj)
     if (res.data) {
@@ -24,6 +31,11 @@ class VaultKeepsService {
     return res
   }
 
+  /**
+ *
+ * @param {number} id
+ * @returns
+ */
   async remove(id) {
     const res = await api.delete('/api/vaultKeeps/' + id)
     AppState.vaultKeeps = AppState.vaultKeeps.filter(k => k.id !== id)

@@ -91,6 +91,9 @@ export default {
     })
     return {
       state,
+      /**
+       * Users can create keeps
+       **/
       async createKeep(){
         try {
           state.createKeep.creatorId = state.account.id

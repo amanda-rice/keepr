@@ -39,6 +39,10 @@ export default {
     const route = useRoute()
     return {
       route,
+      /**
+       * Before opening a keep card, if user is logged in, get a list of all of the vaults that 
+       * the keep is not in to be used in the dropdown.
+       **/
       async getKeep(){
         try {
           if(this.account.id){
@@ -49,6 +53,9 @@ export default {
           Pop.toast(error, 'error')
         }
       },
+      /**
+       * Allow users to remove keeps from their vaults
+       **/
       async removeKeep(){
         try {
           if(await Pop.confirm()){
@@ -60,6 +67,10 @@ export default {
           Pop.toast(error, 'error')
         }
       },
+      /**
+       * Users can delete their vaults. Must confirm the delete before method calls service
+       * to perform delete.
+       **/      
       async deleteVault(){
         try {
           if (await Pop.confirm()) {

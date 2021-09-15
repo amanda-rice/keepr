@@ -98,6 +98,9 @@ export default {
     })
     return {
       state,
+      /**
+       * Users can create new vaults
+       **/
       async createVault(){
         try {
           state.createdVault.creatorId = state.account.id

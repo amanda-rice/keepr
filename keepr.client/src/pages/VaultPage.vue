@@ -36,7 +36,13 @@ export default {
       activeVault: computed(() => AppState.activeVault),
       
     })
-
+    /** 
+     * Watch for changes in the route ID
+     * On change, get new vaults and keeps by ID
+     * Don't allow access to the Vault page if the vault is private
+     * and the user doesn't own the account. In this case, send 
+     * the user back to the homepage.
+     **/
     watchEffect(async() => {
       try {
         if(route.params.id && !isNaN(route.params.id)){
@@ -57,6 +63,9 @@ export default {
     return {
       state,
       route,
+      /** 
+       * Confirm the user wants to delete a vault and call the service to perform the delete
+       **/
       async deleteVault(){
         try {
           if (await Pop.confirm()) {

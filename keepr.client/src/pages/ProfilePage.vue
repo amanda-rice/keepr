@@ -64,7 +64,10 @@ export default {
       profKeeps: computed(()=> AppState.profKeeps),
       profile: computed(()=> AppState.activeProfile),
     })
-
+    /**
+     * Watch for any changes in the route ID.
+     * If so, get vaults, keeps, and profile by the new ID
+     **/
     watchEffect(async() => {
       try {
         await vaultsService.getVaultsByProfile(route.params.id)

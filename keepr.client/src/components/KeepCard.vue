@@ -43,6 +43,10 @@ export default {
       account: computed(()=> AppState.account)
     })
     return {
+       /**
+       * Before opening a keep card, if user is logged in, get a list of all of the vaults that 
+       * the keep is not in to be used in the dropdown.
+       **/
       async getKeep(){
         try {
           if(state.account.id){
@@ -53,6 +57,10 @@ export default {
           Pop.toast(error, 'error')
         }
       },
+      /**
+       * Clicking a profile image takes the user to that profile page.
+       * Used @click.stop instead of Router-link so modal wouldn't try opening as well.
+       **/
       goToProfile(){
         router.push({ name: 'Profile', params: {id: props.keep.creatorId}})
       }

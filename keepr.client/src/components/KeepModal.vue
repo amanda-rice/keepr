@@ -94,6 +94,9 @@ export default {
     return {
       state,
       route,
+      /**
+       * Users can add any keeps to their vaults that don't already contain that keep
+       **/
       async addVault(){
         try {
           const routeName = route.name
@@ -108,6 +111,9 @@ export default {
           Pop.toast(`Can't add Keep to this Vault` , 'error')
         }
       },
+      /**
+       * Deletes user's keep and closes the modal
+       **/
       async deleteKeep(){
         try {
           if (await Pop.confirm()) {
@@ -120,6 +126,9 @@ export default {
           Pop.toast(error, 'error')
         }
       },
+      /**
+       * When share button is clicked, keep's shares count increases
+       **/
       shareKeep(){
         keepsService.shareKeep(props.keep)
       },

@@ -9,6 +9,10 @@ class KeepsService {
     logger.log(res.data)
   }
 
+  /**
+ *
+ * @param {number} id
+ */
   async getById(id) {
     const res = await api.get(`/api/keeps/${id}`)
     const index = AppState.profKeeps.findIndex(k => k.id === id)
@@ -21,30 +25,50 @@ class KeepsService {
     }
   }
 
+  /**
+ *
+ * @param {number} id
+ */
   async getByIdProf(id) {
     const res = await api.get(`/api/keeps/${id}`)
     const index = AppState.keeps.findIndex(k => k.id === id)
     AppState.keeps[index] = res.data
   }
 
+  /**
+ *
+ * @param {string} id
+ */
   async getKeepsByProfile(id) {
     const res = await api.get(`/api/profiles/${id}/keeps`)
     AppState.profKeeps = res.data
     logger.log(res.data)
   }
 
+  /**
+ *
+ * @param {number} id
+ */
   async getKeepsByVaultId(id) {
     const res = await api.get(`/api/vaults/${id}/keeps`)
     AppState.vaultKeeps = res.data
     logger.log(res.data, 'vaultKeeps')
   }
 
+  /**
+ *
+ * @param {object} obj
+ */
   async createKeep(obj) {
     const res = await api.post('/api/keeps', obj)
     AppState.keeps.push(res.data)
     AppState.profKeeps.push(res.data)
   }
 
+  /**
+ *
+ * @param {object} obj
+ */
   async shareKeep(obj) {
     obj.shares++
     const res = await api.put(`api/keeps/${obj.id}`, obj)
@@ -54,6 +78,10 @@ class KeepsService {
     keepsService.getKeepsByProfile(obj.creatorId)
   }
 
+  /**
+ *
+ * @param {number} id
+ */
   async deleteKeep(id) {
     const res = await api.delete(`/api/keeps/${id}`)
 
